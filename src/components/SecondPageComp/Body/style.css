@@ -1,0 +1,53 @@
+.top{
+  margin-bottom: -20px;
+  padding-left: 108px;
+}
+
+.cont{
+  width: 85%;
+}
+
+.container{
+  width: 85%;
+}
+
+.all{
+}
+
+.buttons{
+  margin-right: 162px;
+}
+
+.text{
+  margin-top: -5px;
+}
+
+.inputSku, .inputName, .inputPrice{
+    margin-left: 50px;
+    width: 200px;
+    height:50%
+}
+
+.inputName{
+    margin-left: 35px
+}
+
+.inputPrice{
+    margin-left: 25px
+}
+
+.txtType{
+    padding-right: 15px;
+}
+
+.forms{
+  width: 100%;
+}
+
+.serror{
+  margin-left: 20px;
+  font-weight: bold;
+  font-size:12;
+  color: red;
+}
+
