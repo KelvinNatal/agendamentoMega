@@ -9,17 +9,17 @@ const FurnitureForm = (props) => {
                 <div className='input-group-sm mb-1'>
                   <div className='d-flex'>
                       <p className='textFurniture'>Height (CM)</p>
-                      <input type='text' name="height" onChange={props.func} value={props.weight} className='form-control inputFurniture'  aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
+                      <input id="height" type='text' name="height" onChange={props.func} value={props.weight} className='form-control inputFurniture'  aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
                       <div className="serror">{props.statH}</div>
                    </div>
                    <div className='d-flex'>
                       <p className='textFurniture'>Width (CM)</p>
-                      <input type='text' name="width" onChange={props.func} value={props.width} className='form-control inputFurniture' id="middle" aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
+                      <input id="width" type='text' name="width" onChange={props.func} value={props.width} className='form-control inputFurniture' id="middle" aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
                       <div className="serror">{props.statW}</div>
                    </div>
                    <div className='d-flex'>
                       <p className='textFurniture'>Lenght (CM)</p>
-                      <input type='text' name="lenght" onChange={props.func} value={props.lenght} className='form-control inputFurniture'  id="down" aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
+                      <input id="lenght" type='text' name="lenght" onChange={props.func} value={props.lenght} className='form-control inputFurniture'  id="down" aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
                       <div className="serror">{props.statL}</div>
                    </div>
                 </div>

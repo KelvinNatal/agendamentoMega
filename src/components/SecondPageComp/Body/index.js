@@ -223,13 +223,13 @@ const Body = () => {
                 </div>
                 <div className="input-group-sm mb-1 d-flex text">
                     <p className=''>Name</p>
-                    <input type="text" name="name"  onChange={inputValue} class="form-control inputName"  aria-describedby="inputGroup-sizing-sm"/>
+                    <input id="name" type="text" name="name"  onChange={inputValue} class="form-control inputName"  aria-describedby="inputGroup-sizing-sm"/>
                     <div className="serror">{state.nameError}</div>
                     
                 </div>
                 <div className="input-group-sm mb-1 d-flex text">
                     <p className=''>Price($)</p>
-                    <input type="text" name="price" onChange={inputValue} class="form-control inputPrice" aria-describedby="inputGroup-sizing-sm"/>
+                    <input id="price" type="text" name="price" onChange={inputValue} class="form-control inputPrice" aria-describedby="inputGroup-sizing-sm"/>
                     <div className="serror">{state.priceError}</div>
                     
                 </div>
