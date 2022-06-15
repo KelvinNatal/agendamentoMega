@@ -67,7 +67,7 @@ const Body = () => {
                  <p class="navbar-brand product"><h3>Product List</h3></p>
                     <div class="d-flex">
                         <Link to="/addproduct"><button class="btn btn-outline-dark button" type="submit">ADD</button></Link>
-                        <button id="delete-product-btn" class="btn btn-danger" onClick={() => (deleteProduct())} type="submit">Mass Delete</button>
+                        <button id="delete-product-btn" class="btn btn-danger" onClick={() => (deleteProduct())} type="submit">MASS DELETE</button>
                     </div>
                 </div>
                 </nav>
