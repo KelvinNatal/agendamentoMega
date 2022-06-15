@@ -45,22 +45,17 @@ Header{
 }
 
 .card{
-    margin-top: -25px;
+    margin-top: -20px;
     padding-top: 10px;
 
 }
-
-.colum{
-    
-}
-
 
 .width{
     text-align: center;
 }
 
 .check{
-    padding-left: 40px;
+    padding-left: 25px;
     padding-top: 10px;
 }
 
@@ -68,5 +63,7 @@ Header{
     margin-bottom: 0px;
 }
 
-.delete-checkbox{}
+.delete-checkbox{
+    
+}
 

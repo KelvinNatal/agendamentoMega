@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap-5.2.0-beta1-dist/dist/css/bootstrap.css';
+import 'bootstrap-5.2.0-beta1-dist/dist/js/bootstrap.js';
 import './index.css';
 import App from './App';
 
