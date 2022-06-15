@@ -198,7 +198,7 @@ const Body = () => {
       <header className="heade">
         <nav class="navbar bg-light">
             <div class="container cont">
-                 <a class="navbar-brand product"><h3>Product ADD</h3></a>
+                 <p class="navbar-brand product"><h3>Product ADD</h3></p>
                     <div class="d-flex">
                         <button class="btn btn-outline-dark button" type="submit" name="btnRegister" id="test">Save</button>
                         <Link to="/"><button class="btn btn-danger" >Cancel</button></Link>

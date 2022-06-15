@@ -64,7 +64,7 @@ const Body = () => {
         <nav class="navbar bg-light">
         {status.type === 'erro'?<div className="serror">{status.message}</div> : ""} 
             <div class="container cont">
-                 <a class="navbar-brand product"><h3>Product List</h3></a>
+                 <p class="navbar-brand product"><h3>Product List</h3></p>
                     <div class="d-flex">
                         <Link to="/addproduct"><button class="btn btn-outline-dark button" type="submit">ADD</button></Link>
                         <button id="delete-product-btn" class="btn btn-danger" onClick={() => (deleteProduct())} type="submit">Mass Delete</button>
