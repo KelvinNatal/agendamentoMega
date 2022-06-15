@@ -5,7 +5,8 @@ const FurnitureForm = (props) => {
 
       return (
       <>
-      <div id='furniture'>
+      <body>
+      <div id='Furniture'>
                 <div className='input-group-sm mb-1'>
                   <div className='d-flex'>
                       <p className='textFurniture'>Height (CM)</p>
@@ -25,6 +26,7 @@ const FurnitureForm = (props) => {
                 </div>
                 <h6 className='textDescription'>Please provide dimensions in HxWxL format</h6>
         </div>
+        </body>
       </>
       
     );

@@ -208,7 +208,8 @@ const Body = () => {
                 <div className="d-flex justify-content-center">
             <hr size="4" className="hr-weigh"/>
         </div>
-        </header>  
+        </header> 
+        <body> 
         <div className='container all'>
             <div className=''>  
                               
@@ -255,8 +256,9 @@ const Body = () => {
             <div id="ado" className='forms'>            
               {productFunc()}                
             </div>         
-        </div>      
-        </form>
+        </div>    
+        </body>  
+        </form>        
       </>
     );
   };
