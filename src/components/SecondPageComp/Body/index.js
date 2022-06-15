@@ -214,7 +214,7 @@ const Body = () => {
                               
                 <div className="input-group-sm mb-1 d-flex text">
                     <p className=''>SKU</p>
-                    <input id="#sku" type="text" name="sku" onChange={inputValue}  className="form-control inputSku"  aria-describedby="inputGroup-sizing-sm"/>
+                    <input id="sku" type="text" name="sku" onChange={inputValue}  className="form-control inputSku"  aria-describedby="inputGroup-sizing-sm"/>
                     <div className="serror">
                     {state.skuError}   
                     {status.type === 'erro'?<div className="serror">{status.message}</div> : ""} 
