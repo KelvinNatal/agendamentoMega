@@ -95,7 +95,7 @@ const Body = () => {
                return(
                   <div className="col-sm-6 col-lg-3 col-xl-3 mb-5 colum">      
                       <div className="card border-dark mb-3 card" key={product.id}>
-                      <div className="delete-checkbox">
+                      <div class="check">
                       <input className="delete-checkbox" onChange={event=>{
                           let checked = event.target.checked;
                           setProducts(Object.values(products).map(data =>{
@@ -104,7 +104,7 @@ const Body = () => {
                               }
                               return data;
                             })
-                          )}} checked={product.select} type="checkbox" value={product.id} id="flexCheckDefault"/>
+                          )}} checked={product.select} type="checkbox" value={product.id} id="delete-checkbox"/>
                           <label class="form-check-label" for="flexCheckDefault"/>
                       </div>
                     <div className="card-body text-dark width">

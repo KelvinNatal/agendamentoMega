@@ -2,9 +2,9 @@ import './style.css'
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link} from "react-router-dom";
-import DForm from '../DForm/index';
+import Disc from '../Disc/index';
 import FurnitureForm from '../FurnitureForm/index';
-import BookForm from '../BookForm';
+import Book from '../Book';
 
 const Body = () => {
 
@@ -56,7 +56,7 @@ const Body = () => {
             product.height = 0;
             product.length = 0;
             product.weight = 0;
-            return <DForm      
+            return <Disc      
                         func = {inputValue}
                         stat = {state.sizeError}
                     />;
@@ -78,7 +78,7 @@ const Body = () => {
             product.height = 0;
             product.length = 0;
             product.size = 0;
-            return <BookForm
+            return <Book
                     func = {inputValue}
                     statW = {state.weightError}
                     />; 
