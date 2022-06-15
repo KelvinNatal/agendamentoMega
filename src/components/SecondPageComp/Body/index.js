@@ -50,7 +50,7 @@ const Body = () => {
         while(productType === '0'){
             return '';
         }
-
+        
         while(productType === '1'){
             product.width = 0;
             product.height = 0;
@@ -252,10 +252,15 @@ const Body = () => {
                  </div>
                  <div className="serror">{state.emptyError}</div>
             </div>
-            <br/>
-            <div id="ado" className='forms'>            
-              {productFunc()}                
-            </div>         
+            <br/>            
+            <div id='Disc'>
+              <div className='input-group-sm mb-1 d-flex'>
+                 <p className='textDVD'>Size (MB)</p>
+                 <input id="size" type='text' class='form-control inputDVD' name="size" onChange={inputValue} aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
+                 <div className="serror">{state.sizeError}</div>
+              </div>
+           <h6 className='textDescription'>Please provide the size only in Megabytes(MB)</h6>
+             </div>        
         </div>    
         </body>  
         </form>        

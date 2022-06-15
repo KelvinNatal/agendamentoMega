@@ -5,7 +5,6 @@ const DForm = (props) => {
 
     return (
       <>
-      <body>
       <div id='dvd'>
               <div className='input-group-sm mb-1 d-flex'>
                  <p className='textDVD'>Size (MB)</p>
@@ -14,7 +13,6 @@ const DForm = (props) => {
               </div>
            <h6 className='textDescription'>Please provide the size only in Megabytes(MB)</h6>
       </div>
-      </body>
       </>      
     );
   };

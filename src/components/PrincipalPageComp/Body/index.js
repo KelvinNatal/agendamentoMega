@@ -75,6 +75,7 @@ const Body = () => {
             <hr size="5" className="hr-weigh"/>
         </div>
         </header>
+        <body>
         <div id="card" className="container">
            <div className='row'>
            {typeof products !== "undefined" &&
@@ -119,6 +120,7 @@ const Body = () => {
       })}  
         </div>
       </div>
+      </body>
       </>
     );
   };
