@@ -18,8 +18,8 @@ const FurnitureForm = (props) => {
                       <div className="serror">{props.statW}</div>
                    </div>
                    <div className='d-flex'>
-                      <p className='textFurniture'>Lenght (CM)</p>
-                      <input id="lenght" type='text' name="lenght" onChange={props.func} value={props.lenght} className='form-control inputFurnitureL' aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
+                      <p className='textFurniture'>Length (CM)</p>
+                      <input id="length" type='text' name="length" onChange={props.func} value={props.length} className='form-control inputFurnitureL' aria-label='size' aria-describedby='inputGroup-sizing-sm'/>
                       <div className="serror">{props.statL}</div>
                    </div>
                 </div>

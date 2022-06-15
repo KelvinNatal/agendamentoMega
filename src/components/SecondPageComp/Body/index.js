@@ -17,8 +17,8 @@ const Body = () => {
         sizeError: '',
         heightError: '',
         widthError: '',
-        lenghtError: '',
-        weightError: '',
+        lengthError: '',
+        weigthError: '',
         emptyError: ''
     }
 
@@ -40,8 +40,8 @@ const Body = () => {
         size: 0,
         height: 0,
         width: 0,
-        lenght: 0,
-        weight: 0,
+        length: 0,
+        weigth: 0,
         
     });
 
@@ -54,8 +54,8 @@ const Body = () => {
         while(productType === '1'){
             product.width = 0;
             product.height = 0;
-            product.lenght = 0;
-            product.weight = 0;
+            product.length = 0;
+            product.weigth = 0;
             return <DForm      
                         func = {inputValue}
                         stat = {state.sizeError}
@@ -64,23 +64,23 @@ const Body = () => {
 
         while(productType === '2'){
             product.size = 0;
-            product.weight = 0;
+            product.weigth = 0;
             return <FurnitureForm
                         func = {inputValue}
                         statH = {state.heightError}
                         statW = {state.widthError}
-                        statL = {state.lenghtError}
+                        statL = {state.lengthError}
                     />;
         }
 
         while(productType === '3'){
             product.width = 0;
             product.height = 0;
-            product.lenght = 0;
+            product.length = 0;
             product.size = 0;
             return <BookForm
                     func = {inputValue}
-                    statW = {state.weightError}
+                    statW = {state.weigthError}
                     />; 
         }  
     } 
@@ -95,8 +95,8 @@ const Body = () => {
             let sizeError = '';
             let heightError= '';
             let widthError= '';
-            let lenghtError= '';
-            let weightError= '';
+            let lengthError= '';
+            let weigthError= '';
             let emptyError= '';
             
             if(product.sku === '')
@@ -137,23 +137,23 @@ const Body = () => {
             }
             if(product.lenght === 0 && productType === '2')
             {
-                lenghtError = "Please, submit required data";
+                lengthError = "Please, submit required data";
             }
-            else if(isNaN(product.lenght)){
-                lenghtError = "Please, provide the data of indicated type";
+            else if(isNaN(product.length)){
+                lengthError = "Please, provide the data of indicated type";
             }
-            if(product.weight === 0 && productType === '3')
+            if(product.weigth === 0 && productType === '3')
             {
-                weightError = "Please, submit required data";
+                weigthError = "Please, submit required data";
             }
-            else if(isNaN(product.weight)){
-                weightError = "Please, provide the data of indicated type";
+            else if(isNaN(product.weigth)){
+                weigthError = "Please, provide the data of indicated type";
             }       
-            else if((product.size || product.height || product.weight) === 0){
+            else if((product.size || product.height || product.weigth) === 0){
                 emptyError = "Please select a type";
             }    
-            if(skuError || nameError || priceError || sizeError || heightError || widthError || lenghtError || weightError || emptyError){
-                setState({skuError, nameError, priceError, sizeError, heightError, widthError, lenghtError, weightError, emptyError});
+            if(skuError || nameError || priceError || sizeError || heightError || widthError || lengthError || weigthError || emptyError){
+                setState({skuError, nameError, priceError, sizeError, heightError, widthError, lengthError, weigthError, emptyError});
                 return false;
             }
             
