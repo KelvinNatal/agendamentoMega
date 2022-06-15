@@ -81,11 +81,11 @@ const Body = () => {
               Object.values(products).map((product) => {
             
                 const validate = () => {
-                    if(product.size !== null && product.weigth == null && product.height == null){
+                    if(product.size !== null && product.weight == null && product.height == null){
                       return `Size: ${product.size} MB`;
                     }
-                    else if(product.weigth !== 0 && product.height == null){
-                      return `Weight: ${product.weigth} KG`;
+                    else if(product.weight !== 0 && product.height == null){
+                      return `Weight: ${product.weight} KG`;
                     }
                     else{
                       return `Dimension: ${product.height}x${product.width}x${product.length}`; 
@@ -95,7 +95,7 @@ const Body = () => {
                return(
                   <div className="col-sm-6 col-lg-3 col-xl-3 mb-5 colum">      
                       <div className="card border-dark mb-3 card" key={product.id}>
-                      <div class="check">
+                      <div className="delete-checkbox">
                       <input className="delete-checkbox" onChange={event=>{
                           let checked = event.target.checked;
                           setProducts(Object.values(products).map(data =>{

@@ -18,7 +18,7 @@ const Body = () => {
         heightError: '',
         widthError: '',
         lengthError: '',
-        weigthError: '',
+        weightError: '',
         emptyError: ''
     }
 
@@ -41,7 +41,7 @@ const Body = () => {
         height: 0,
         width: 0,
         length: 0,
-        weigth: 0,
+        weight: 0,
         
     });
 
@@ -55,7 +55,7 @@ const Body = () => {
             product.width = 0;
             product.height = 0;
             product.length = 0;
-            product.weigth = 0;
+            product.weight = 0;
             return <DForm      
                         func = {inputValue}
                         stat = {state.sizeError}
@@ -64,7 +64,7 @@ const Body = () => {
 
         while(productType === '2'){
             product.size = 0;
-            product.weigth = 0;
+            product.weight = 0;
             return <FurnitureForm
                         func = {inputValue}
                         statH = {state.heightError}
@@ -80,7 +80,7 @@ const Body = () => {
             product.size = 0;
             return <BookForm
                     func = {inputValue}
-                    statW = {state.weigthError}
+                    statW = {state.weightError}
                     />; 
         }  
     } 
@@ -96,7 +96,7 @@ const Body = () => {
             let heightError= '';
             let widthError= '';
             let lengthError= '';
-            let weigthError= '';
+            let weightError= '';
             let emptyError= '';
             
             if(product.sku === '')
@@ -142,18 +142,18 @@ const Body = () => {
             else if(isNaN(product.length)){
                 lengthError = "Please, provide the data of indicated type";
             }
-            if(product.weigth === 0 && productType === '3')
+            if(product.weight === 0 && productType === '3')
             {
-                weigthError = "Please, submit required data";
+                weightError = "Please, submit required data";
             }
-            else if(isNaN(product.weigth)){
-                weigthError = "Please, provide the data of indicated type";
+            else if(isNaN(product.weight)){
+                weightError = "Please, provide the data of indicated type";
             }       
-            else if((product.size || product.height || product.weigth) === 0){
+            else if((product.size || product.height || product.weight) === 0){
                 emptyError = "Please select a type";
             }    
-            if(skuError || nameError || priceError || sizeError || heightError || widthError || lengthError || weigthError || emptyError){
-                setState({skuError, nameError, priceError, sizeError, heightError, widthError, lengthError, weigthError, emptyError});
+            if(skuError || nameError || priceError || sizeError || heightError || widthError || lengthError || weightError || emptyError){
+                setState({skuError, nameError, priceError, sizeError, heightError, widthError, lengthError, weightError, emptyError});
                 return false;
             }
             
