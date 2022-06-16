@@ -1,7 +1,7 @@
 import './style.css'
 
 
-const DForm = (props) => {
+const Disc = (props) => {
 
     return (
       <>
@@ -17,4 +17,4 @@ const DForm = (props) => {
     );
   };
 
-export default DForm;
+export default Disc;

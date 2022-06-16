@@ -164,7 +164,7 @@ const Body = () => {
         e.preventDefault();
         const isValid = validate();
         if(isValid){                        
-            await fetch("http://localhost/apiphp/index.php",{ 
+            await fetch("https://jobphp.herokuapp.com/index.php",{ 
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ const Body = () => {
             <div class="container cont">
                  <p class="navbar-brand product"><h3>Product ADD</h3></p>
                     <div class="d-flex">
-                        <button class="btn btn-outline-dark button" type="submit" name="btnRegister" id="test">Save</button>
+                        <button class="btn btn-outline-dark button" type="submit">Save</button>
                         <Link to="/"><button class="btn btn-danger" >Cancel</button></Link>
                     </div>
                 </div>

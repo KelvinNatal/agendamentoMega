@@ -1,7 +1,7 @@
 import './style.css';
 
 
-const BookForm = (props) => {
+const Book = (props) => {
 
       return (
       <>
@@ -18,4 +18,4 @@ const BookForm = (props) => {
     );
   };
 
-export default BookForm;
+export default Book;

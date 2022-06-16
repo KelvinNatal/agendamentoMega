@@ -14,7 +14,7 @@ const Body = () => {
 
     
   const getProducts = async () => {    
-    await fetch("http://localhost/apiphp/index.php",{
+    await fetch("https://jobphp.herokuapp.com/index.php",{
       method: "GET"
     })
     .then((response) => response.json())
@@ -37,7 +37,7 @@ const Body = () => {
           arrayids.push(product.id);
         }       
       });
-      await fetch("http://localhost/apiphp/index.php?id=" + arrayids,{
+      await fetch("https://jobphp.herokuapp.com/index.php?id=" + arrayids,{
         method: 'DELETE'       
       })
       .then((response) => response.json())
