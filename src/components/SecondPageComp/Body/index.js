@@ -31,7 +31,7 @@ const Body = () => {
         state: initialstate
     });
 
-    const [productType, setType] = useState([]);
+    const [productType, setType] = useState({});
 
     const [product, setProduct] = useState({
         sku: '',
@@ -196,12 +196,12 @@ const Body = () => {
       <>
       <form id="product_form" onSubmit={cadProduct}>
       <header className="heade">
-        <nav class="navbar bg-light">
-            <div class="container cont">
-                 <p class="navbar-brand product"><h3>Product ADD</h3></p>
-                    <div class="d-flex">
-                        <button class="btn btn-outline-dark button" type="submit">Save</button>
-                        <Link to="/"><button class="btn btn-danger" >Cancel</button></Link>
+        <nav className="navbar bg-light">
+            <div className="container cont">
+                 <p className="navbar-brand product">Product ADD</p>
+                    <div className="d-flex">
+                        <button className="btn btn-outline-dark button" type="submit">Save</button>
+                        <Link to="/"><button className="btn btn-danger" >Cancel</button></Link>
                     </div>
                 </div>
                 </nav>
@@ -209,7 +209,6 @@ const Body = () => {
             <hr size="4" className="hr-weigh"/>
         </div>
         </header> 
-        <body> 
         <div className='container all'>
             <div className=''>  
                               
@@ -224,13 +223,13 @@ const Body = () => {
                 </div>
                 <div className="input-group-sm mb-1 d-flex text">
                     <p className=''>Name</p>
-                    <input id="name" type="text" name="name"  onChange={inputValue} class="form-control inputName"  aria-describedby="inputGroup-sizing-sm"/>
+                    <input id="name" type="text" name="name"  onChange={inputValue} className="form-control inputName"  aria-describedby="inputGroup-sizing-sm"/>
                     <div className="serror">{state.nameError}</div>
                     
                 </div>
                 <div className="input-group-sm mb-1 d-flex text">
                     <p className=''>Price($)</p>
-                    <input id="price" type="text" name="price" onChange={inputValue} class="form-control inputPrice" aria-describedby="inputGroup-sizing-sm"/>
+                    <input id="price" type="text" name="price" onChange={inputValue} className="form-control inputPrice" aria-describedby="inputGroup-sizing-sm"/>
                     <div className="serror">{state.priceError}</div>
                     
                 </div>
@@ -239,11 +238,11 @@ const Body = () => {
             <br/><br/>              
             <div className='d-flex'>
                 <p className='txtType'>Type Switcher</p>                
-                <div class="input-group-sm mb-3">
+                <div className="input-group-sm mb-3">
                     <select 
                     onClick={productFunc}
                     value={productType} onChange={(e) => setType(e.target.value)}
-                    class="form-select" id="productType"> 
+                    className="form-select" id="productType"> 
                         <option name="type" value="0">Type Switcher</option>                 
                         <option name="dvd" value="1">DVD</option>
                         <option name="furniture" value="2">Furniture</option>
@@ -257,7 +256,6 @@ const Body = () => {
               {productFunc()}                
             </div>         
         </div>    
-        </body>  
         </form>        
       </>
     );
