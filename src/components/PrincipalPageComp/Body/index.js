@@ -97,7 +97,7 @@ const Body = () => {
                   <div className="col-sm-6 col-lg-3 col-xl-3 mb-5 colum">      
                       <div className="card border-dark mb-3 card" key={product.id}>
                       <div class="check">
-                      <input className="delete-checkbox" onChange={event=>{
+                      <input class="delete-checkbox" onChange={event=>{
                           let checked = event.target.checked;
                           setProducts(Object.values(products).map(data =>{
                               if(product.id === data.id){
