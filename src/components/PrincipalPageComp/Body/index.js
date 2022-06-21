@@ -78,18 +78,16 @@ const Body = () => {
         <div id="card" className="container">
            <div className='row'>
            {typeof products !== "undefined" &&
-              Object.values(products).map((product) => {
-            
+              Object.values(products).map((product) => {    
+
                 const validate = () => {
-                    if(product.size !== null && product.weight == null && product.height == null){
+                    while(product.size !== null && product.weight == null && product.height == null){
                       return `Size: ${product.size} MB`;
                     }
-                    else if(product.weight !== 0 && product.height == null){
+                    while(product.weight !== 0 && product.height == null){
                       return `Weight: ${product.weight} KG`;
-                    }
-                    else{
-                      return `Dimension: ${product.height}x${product.width}x${product.length}`; 
-                    }
+                    }                   
+                    return `Dimension: ${product.height}x${product.width}x${product.length}`; 
                 }
 
                return(

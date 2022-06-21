@@ -36,12 +36,12 @@ const Body = () => {
     const [product, setProduct] = useState({
         sku: '',
         name: '',
-        price: 0,
-        size: 0,
-        height: 0,
-        width: 0,
-        length: 0,
-        weight: 0,
+        price: '',
+        size: null,
+        height: null,
+        width: null,
+        length: null,
+        weight: null,
         
     });
 
@@ -52,10 +52,10 @@ const Body = () => {
         }
         
         while(productType === '1'){
-            product.width = 0;
-            product.height = 0;
-            product.length = 0;
-            product.weight = 0;
+            product.width = null;
+            product.height = null;
+            product.length = null;
+            product.weight = null;
             return <Disc      
                         func = {inputValue}
                         stat = {state.sizeError}
@@ -63,8 +63,8 @@ const Body = () => {
         }
 
         while(productType === '2'){
-            product.size = 0;
-            product.weight = 0;
+            product.size = null;
+            product.weight = null;
             return <FurnitureForm
                         func = {inputValue}
                         statH = {state.heightError}
@@ -74,10 +74,10 @@ const Body = () => {
         }
 
         while(productType === '3'){
-            product.width = 0;
-            product.height = 0;
-            product.length = 0;
-            product.size = 0;
+            product.width = null;
+            product.height = null;
+            product.length = null;
+            product.size = null;
             return <Book
                     func = {inputValue}
                     statW = {state.weightError}
@@ -107,50 +107,50 @@ const Body = () => {
             {
                 nameError = "Please, submit required data";
             }
-            if(product.price === 0)
+            if(product.price === '')
             {
                 priceError = "Please, submit required data";
                 
             }else if(isNaN(product.price)){
                 priceError = "Please, provide the data of indicated type";
             }
-            if(product.size === 0 && productType === '1')
+            if(product.size === '' && productType === '1')
             {
                 sizeError = "Please, submit required data";
             }
             else if(isNaN(product.size)){
                 sizeError = "Please, provide the data of indicated type";
             }
-            if(product.height === 0 && productType === '2')
+            if(product.height === null && productType === '2')
             {
                 heightError = "Please, submit required data";
             }
             else if(isNaN(product.height)){
                 heightError = "Please, provide the data of indicated type";
             }
-            if(product.width === 0 && productType === '2')
+            if(product.width === null && productType === '2')
             {
                 widthError = "Please, submit required data";
             }
             else if(isNaN(product.width)){
                 widthError = "Please, provide the data of indicated type";
             }
-            if(product.length === 0 && productType === '2')
+            if(product.length === null && productType === '2')
             {
                 lengthError = "Please, submit required data";
             }
             else if(isNaN(product.length)){
                 lengthError = "Please, provide the data of indicated type";
             }
-            if(product.weight === 0 && productType === '3')
+            if(product.weight === null && productType === '3')
             {
                 weightError = "Please, submit required data";
             }
             else if(isNaN(product.weight)){
                 weightError = "Please, provide the data of indicated type";
             }       
-            else if((product.size || product.height || product.weight) === 0){
-                emptyError = "Please select a type";
+            else if((product.size || product.height || product.weight) === null){
+                emptyError = "Please fill in a type";
             }    
             if(skuError || nameError || priceError || sizeError || heightError || widthError || lengthError || weightError || emptyError){
                 setState({skuError, nameError, priceError, sizeError, heightError, widthError, lengthError, weightError, emptyError});
@@ -240,7 +240,6 @@ const Body = () => {
                 <p className='txtType'>Type Switcher</p>                
                 <div className="input-group-sm mb-3">
                     <select 
-                    onClick={productFunc}
                     value={productType} onChange={(e) => setType(e.target.value)}
                     className="form-select" id="productType"> 
                         <option name="type" value="0">Type Switcher</option>                 
