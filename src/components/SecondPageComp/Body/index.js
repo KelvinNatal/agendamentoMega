@@ -135,7 +135,7 @@ const Body = () => {
             else if(isNaN(product.width)){
                 widthError = "Please, provide the data of indicated type";
             }
-            if(product.lenght === 0 && productType === '2')
+            if(product.length === 0 && productType === '2')
             {
                 lengthError = "Please, submit required data";
             }
