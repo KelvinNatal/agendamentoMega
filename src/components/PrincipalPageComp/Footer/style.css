@@ -1,8 +1,10 @@
 .hr-weight{
     color: black;
-    width: 83.2%;    
+    width: 83.2%;  
+    
 }
 
 .footer{
     margin-bottom: 0px;
+    background-color: #1A1818;  
 }

@@ -1,36 +1,25 @@
 import './style.css';
 import React from 'react';
-import { useEffect, useState} from "react";
-import { Link } from 'react-router-dom';
+import {useEffect, useState} from "react";
+import {Link} from 'react-router-dom';
 
 const Body = () => {
 
-  const [products, setProducts] = useState([]);
+    const [agendamentos, setAgendamentos] = useState([]);
+    const [relatorio, setRelatorios] = useState([]);
 
-  const [status, setStatus] = useState({
-    type: '',
-    message: ''
-})
+    const getProducts = async () => {
+        await fetch("http://localhost/final/index.php/agendamentos", {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            setAgendamentos(responseJson.listaAgendamentos)
+            setRelatorios(responseJson.relatorios[0].totalAgendamentos);
+        });
+    };
 
-    
-  const getProducts = async () => {    
-    await fetch("https://jobphp.herokuapp.com/index.php",{
-      method: "GET"
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson.records === null){
-        document.getElementById("card").innerHTML = 
-        `
-          <div></div>
-        `
-      }else{
-        setProducts(responseJson.records)
-      }      
-    });  
-};
-
-  const deleteProduct = async () => {
+    /***const deleteProduct = async () => {
     let arrayids=[];
     Object.values(products).forEach(product=>{
         if(product.select){
@@ -52,73 +41,146 @@ const Body = () => {
         getProducts();          
       })
     }  
+*/
 
-
-  useEffect(() => {
-    getProducts();
-  },[])
+    useEffect(() => {
+        getProducts();
+    }, [])
 
     return (
-      <>
-      <header className="head">
-        <nav className="navbar bg-light">
-        {status.type === 'erro'?<div className="serror">{status.message}</div> : ""} 
-            <div className="container cont">
-                 <p className="navbar-brand product">Product List</p>
-                    <div className="d-flex">
-                        <Link to="/addproduct"><button className="btn btn-outline-dark button" type="submit">ADD</button></Link>
-                        <button id="delete-product-btn" className="btn btn-danger" onClick={() => (deleteProduct())} type="submit">MASS DELETE</button>
+        <>
+            <div className="todoConteudo">
+                <div className='conjuntoTotal'>
+                    <div className='dashDiv d-flex'>
+                        <div className='dashCard' id="firstCard">
+                            <div className='subtitleCard'>
+                              <p>Total</p>
+                            </div>
+                            <div className='tituloCard'>
+                              <p>{relatorio}</p>
+                            </div>
+                        </div>
+                        <div className='dashCard' id="secondCard">
+                            <div className='subtitleCard'>
+                                <p>Realizados</p>
+                            </div>
+                            <div className='tituloCard'>
+                                <p>5</p>
+                            </div>
+                        </div>
+                        <div className='dashCard' id="thirdCard">
+                            <div className='subtitleCard'>
+                                <p>Pendentes</p>
+                            </div>
+                            <div className='tituloCard'>
+                              <p>2</p>
+                            </div>
+                        </div>
+                        <div className='dashCard' id="lastCard">
+                            <div className='subtitleCard'>
+                                <p>Em treinamento</p>
+                            </div>
+                            <div className='tituloCard'>
+                              <p>3</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </nav>
-                <div className="d-flex justify-content-center">
-            <hr size="5" className="hr-weigh"/>
-        </div>
-        </header>
-        <div id="card" className="container">
-           <div className='row'>
-           {typeof products !== "undefined" &&
-              Object.values(products).map((product) => {    
-
-                const validate = () => {
-                    while(product.size !== null && product.weight == null && product.height == null){
-                      return `Size: ${product.size} MB`;
-                    }
-                    while(product.weight !== 0 && product.height == null){
-                      return `Weight: ${product.weight} KG`;
-                    }                   
-                    return `Dimension: ${product.height}x${product.width}x${product.length}`; 
-                }
-
-               return(
-                  <div className="col-sm-6 col-lg-3 col-xl-3 mb-5 colum" key={product.id}>      
-                      <div className="card border-dark mb-3 card">
-                      <div className="check">
-                      <input className='delete-checkbox' onChange={event=>{
-                          let checked = event.target.checked;
-                          setProducts(Object.values(products).map(data =>{
-                              if(product.id === data.id){
-                                data.select = checked;
-                              }
-                              return data;
-                            })
-                          )}} checked={product.select} type="checkbox" value={product.id}  />
-                          <label className="form-check-label"/>
+                    <div id='buttonDash'>
+                        <p>+ Agendamento</p>
+                    </div>
+                    <div className='agendamentosDiv'>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Empresa</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Produto</th>
+                                    <th scope="col">comercial</th>
+                                    <th scope="col">Telefone</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Horário</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Analista</th>
+                                    <th scope="col">Observacao</th>
+                                </tr>
+                            </thead>
+                            <tbody> {
+                                typeof agendamentos !== "undefined" && Object.values(agendamentos).map((agendamento) => {
+                                    return (
+                                        <tr className='agendRows'>
+                                            <th scope="row"></th>
+                                            <td>{agendamento.nomeEmpresa}</td>                                            
+                                            <td>{agendamento.nomeCliente}</td>
+                                            <td>{agendamento.produtoContratado}</td>
+                                            <td>{agendamento.comercial}</td>
+                                            <td>{agendamento.telefoneCliente}</td>
+                                            <td>{agendamento.data}</td>
+                                            <td>{agendamento.horario}</td>
+                                            <td>{agendamento.status}</td>
+                                            <td>{agendamento.analista}</td>
+                                            <td>{agendamento.observacao}</td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                                <tr>
+                                    <th className="" scope="row"></th>
+                                    <td>45</td>
+                                    <td>43</td>
+                                    <td>45</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Mark</td>
+                                </tr>
+                                <tr>
+                                    <th className="" scope="row"></th>
+                                    <td>45</td>
+                                    <td>43</td>
+                                    <td>45</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Mark</td>
+                                </tr>
+                                <tr>
+                                    <th className="" scope="row"></th>
+                                    <td>45</td>
+                                    <td>43</td>
+                                    <td>45</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Mark</td>
+                                </tr>
+                                <tr>
+                                    <th className="" scope="row"></th>
+                                    <td>45</td>
+                                    <td>43</td>
+                                    <td>45</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Mark</td>
+                                </tr>
+                                <tr>
+                                    <th className="" scope="row"></th>
+                                    <td>45</td>
+                                    <td>43</td>
+                                    <td>45</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Mark</td>
+                                </tr>
+                            </tbody>
+                        </table>
                       </div>
-                    <div className="card-body text-dark width">
-                      <p className="card-text">{product.sku}</p>
-                      <p className="card-text">{product.name}</p>
-                      <p className="card-text">{product.price} $</p>
-                      <p className="card-text">{validate()}</p>
-                    </div> 
-              </div>
-       </div>   
-       );         
-      })}  
-        </div>
-      </div>
-      </>
+                </div>
+            </div>
+        </>
     );
-  };
+};
 
 export default Body;

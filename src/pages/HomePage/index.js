@@ -1,14 +1,20 @@
+import { Component } from "react";
+import { Link } from "react-router-dom";
+import NavBar from "../../components/navbar";
+import NavLine from "../../components/navLine";
 import Body from "../../components/PrincipalPageComp/Body"
-import Footer from "../../components/PrincipalPageComp/Footer";
 
 
 const HomePage = () => {
     return (
         <>
-        <Body />
-        <Footer/>
+        <div className="scroll">
+          <NavLine name="Dashboard"/>
+          <NavBar/>
+          <Body />
+        </div>
         </>
     );
-  };
+};
 
 export default HomePage;

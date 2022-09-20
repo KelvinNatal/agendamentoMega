@@ -4,7 +4,7 @@ const Footer = () => {
 
     return (
       <>
-      <footer className='footer'>
+      <footer className='footer '>
         <div className="d-flex justify-content-center">
             <hr size="4" className="hr-weight"/>
         </div>
