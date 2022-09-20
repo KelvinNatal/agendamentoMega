@@ -1,8 +1,6 @@
 import './style.css'
 import { useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import NavLine from '../navLine';
-import NavBar from '../navbar';
 import Modal from "react-bootstrap/Modal";
 
 const Register = () => {
@@ -35,7 +33,6 @@ const Register = () => {
         })
         .then((response) => response.json())
         .then((responseJson) => {
-            console.log(responseJson);
             setUsers(responseJson.listaUsuarios);
         });
     };
@@ -51,7 +48,7 @@ const Register = () => {
             })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                
             }).catch((err)=>{                
                 console.log(err);
             })                            
@@ -60,10 +57,18 @@ const Register = () => {
     useEffect(() => {
         getUsers();
     }, [])
+
+    useEffect(() => {
+        if(sessionStorage.getItem('userData') !== null){            
+            navigate('/register');
+         }else{
+            navigate('/');
+         }         
+    }, [navigate])
     
     return (
         <>
-            <div className="todoConteudologin d-flex">
+            <div className="todoConteudoRegister d-flex">
             <div className='conjuntoUser'>
             <div className="btnUser" onClick={handleShow}>+Usuário</div>
             <Modal  dialogClassName='regMod' fullscreen={fullscreen} show={show} onHide={handleClose} animation={true}>
@@ -87,20 +92,20 @@ const Register = () => {
     </Modal.Body>
             </Modal>
             <div className='UsersDiv'>
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
+                                    <th scope="col">#</th>
                                     <th scope="col">Usuário</th>
                                     <th scope="col">Cargo</th>
                                     <th scope="col">Editar</th>
                                 </tr>
                             </thead>
-                            <tbody> {
-                                typeof users !== "undefined" && Object.values(users).map((user) => {
+                            <tbody>{
+                                typeof users !== "undefined" && Object.values(users).map((user, index) => {
                                     return (
-                                        <tr className='userRow'>
-                                            <th scope="row" ></th>
+                                        <tr className='userRow' key={index}>
+                                            <td>{index+1}</td>
                                             <td className='fontTable'>{user.username}</td>                                            
                                             <td className='fontTable'>Admin</td>
                                             <td className='fontTable'></td>
@@ -111,27 +116,6 @@ const Register = () => {
                             </tbody>
                         </table>
                       </div>
-                {/*<div className="meio container">
-                    <div className='boxContainer'>
-                        <div className='logoContainer'>
-                            <img src={logo}
-                                className='imagem'></img>
-                            <p id="title" className='logoTitle'>AGENDAMENTO</p>
-                            <p id="subTitle" className='logoTitle'>Mega Conecta</p>
-                        </div>
-                        <div className="inputsLogin">
-                            <h5 className='campos'>Usuário de acesso:</h5>
-                            <input id="inputeId" type="text" className=" inpute form-control" placeholder="Digite seu usuário" name="username"
-                                onChange={inputValue}></input>
-                            <h5 className='campos'>Senha de acesso:</h5>
-                            <input type="text" className=" inpute form-control" placeholder="Digite sua senha" name="password"
-                                onChange={inputValue}></input>
-                            <button type="submit" className="btnLogin btn btn-primary" onClick={register}>Registrar</button>
-                            
-                            <a href="/register">Registrar</a>
-                        </div>
-                    </div>
-    </div>**/}
                 </div>
             </div>
         </>

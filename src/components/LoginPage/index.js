@@ -1,14 +1,14 @@
 import './style.css'
 import logo from '../../agendaIcon.png';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {PostData} from '../services/PostData';
 
 const Register = () => {
 
     const [user, setUser] = useState({username: '', password: ''});
 
     const navigate = useNavigate();
+
     const inputValue = e => setUser({...user, [e.target.name]: e.target.value});
 
 
@@ -43,7 +43,7 @@ const Register = () => {
          }else{
             navigate('/');
          }         
-    }, [])
+    }, [navigate])
     
     return (
         <>
@@ -52,7 +52,7 @@ const Register = () => {
                     <div className='boxContainer'>
                         <div className='logoContainer'>
                             <img src={logo}
-                                className='imagem'></img>
+                                className='imagem' alt='...'></img>
                             <p id="title" className='logoTitle'>AGENDAMENTO</p>
                             <p id="subTitle" className='logoTitle'>Mega Conecta</p>
                         </div>

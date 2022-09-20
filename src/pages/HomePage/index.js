@@ -1,5 +1,3 @@
-import { Component } from "react";
-import { Link } from "react-router-dom";
 import NavBar from "../../components/navbar";
 import NavLine from "../../components/navLine";
 import Body from "../../components/PrincipalPageComp/Body"

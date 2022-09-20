@@ -1,5 +1,5 @@
 import { HiUserCircle } from "react-icons/hi";
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import './style.css'
 

@@ -1,12 +1,14 @@
 import './style.css';
 import React from 'react';
 import {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Body = () => {
 
     const [agendamentos, setAgendamentos] = useState([]);
     const [relatorio, setRelatorios] = useState([]);
+
+    const navigate = useNavigate();
 
     const getProducts = async () => {
         await fetch("http://localhost/final/index.php/agendamentos", {
@@ -19,33 +21,17 @@ const Body = () => {
         });
     };
 
-    /***const deleteProduct = async () => {
-    let arrayids=[];
-    Object.values(products).forEach(product=>{
-        if(product.select){
-          arrayids.push(product.id);
-        }       
-      });
-      await fetch("https://jobphp.herokuapp.com/index.php?id=" + arrayids,{
-        method: 'DELETE'       
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {        
-        console.log(responseJson);  
-        if(responseJson.erro){
-          setStatus({
-              type: 'erro',
-              message: responseJson.message
-          })
-       } 
-        getProducts();          
-      })
-    }  
-*/
-
     useEffect(() => {
         getProducts();
     }, [])
+
+    useEffect(() => {
+        if(sessionStorage.getItem('userData') !== null){            
+            navigate('/homepage');
+         }else{
+            navigate('/');
+         }         
+    }, [navigate])
 
     return (
         <>
@@ -89,10 +75,10 @@ const Body = () => {
                         <p>+ Agendamento</p>
                     </div>
                     <div className='agendamentosDiv'>
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
+                                    <th>#</th>
                                     <th scope="col">Empresa</th>
                                     <th scope="col">Cliente</th>
                                     <th scope="col">Produto</th>
@@ -105,11 +91,11 @@ const Body = () => {
                                     <th scope="col">Observacao</th>
                                 </tr>
                             </thead>
-                            <tbody> {
-                                typeof agendamentos !== "undefined" && Object.values(agendamentos).map((agendamento) => {
+                            <tbody>{
+                                typeof agendamentos !== "undefined" && Object.values(agendamentos).map((agendamento, index) => {
                                     return (
-                                        <tr className='agendRows'>
-                                            <th scope="row"></th>
+                                        <tr className='agendRows' key={index}>
+                                            <td>{index+1}</td>
                                             <td>{agendamento.nomeEmpresa}</td>                                            
                                             <td>{agendamento.nomeCliente}</td>
                                             <td>{agendamento.produtoContratado}</td>
@@ -124,56 +110,6 @@ const Body = () => {
                                     );
                                 })
                             }
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
                             </tbody>
                         </table>
                       </div>

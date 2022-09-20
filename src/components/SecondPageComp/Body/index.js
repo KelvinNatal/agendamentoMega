@@ -1,7 +1,7 @@
 import './style.css'
 import { useEffect, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
-
+import {useNavigate} from 'react-router-dom';
 
 const Body = () => {
 
@@ -9,6 +9,7 @@ const Body = () => {
     const [fullscreen, setFullscreen] = useState(true);
     const [products, setProducts] = useState([]);
 
+    const navigate = useNavigate();
     
     const [product, setProduct] = useState({
         nomeEmpresa: '',
@@ -76,6 +77,14 @@ const Body = () => {
     useEffect(() => {
         getProducts();
     }, [])    
+
+    useEffect(() => {
+        if(sessionStorage.getItem('userData') !== null){            
+            navigate('/addproduct');
+         }else{
+            navigate('/');
+         }         
+    }, [navigate])
     
     
     return (       
@@ -93,7 +102,7 @@ const Body = () => {
             <div class="">
             <form id="product_form" onSubmit={cadProduct}>
         <div className='dataHora' >
-            <div class="item">
+            <div className="item">
                 <p>Data/Horário</p>
                 <input type="date" name="data" id="dateCalendar" onChange={inputD}required/>
                 <select id="horario" name="horario" onChange={inputValue}>
@@ -108,26 +117,26 @@ const Body = () => {
                     <option value="16:00">16:00</option>
                     <option value="17:00">17:00</option>
                 </select>
-                <i class="icone fas fa-calendar-alt"></i>
+                <i className="icone fas fa-calendar-alt"></i>
             </div>
         </div>
-        <div class="item">
+        <div className="item">
           <p>Empresa</p>
           <input type="text" name="nomeEmpresa" placeholder="First" onChange={inputValue} />
         </div>
-        <div class="item">
+        <div className="item">
           <p>Cliente</p>
           <input type="text" name="nomeCliente" onChange={inputValue} />
         </div>
-        <div class="item">
+        <div className="item">
           <p>Telefone</p>
           <input type="text" name="telefoneCliente" onChange={inputValue} />
         </div>
-        <div class="item">
+        <div className="item">
           <p>Produto</p>
           <input type="text" name="produtoContratado" onChange={inputValue} />
         </div>
-        <div class="item">
+        <div className="item">
           <p>Comercial</p>
           <select id="comercial" name="comercial" onChange={inputValue}>
               <option value="">Comercial</option>
@@ -139,7 +148,7 @@ const Body = () => {
               <option value="Junior">Junior</option>
             </select>
         </div>
-        <div class="item">
+        <div className="item">
           <p>Analista</p>
           <select id="analista" name="analista" onChange={inputValue}>
               <option value="">Analista</option>
@@ -148,7 +157,7 @@ const Body = () => {
               <option value="Richard">Richard</option>
             </select>
         </div>
-        <div class="item">
+        <div className="item">
           <p>Status</p>
           <select id="status" name="status" onChange={inputValue}>
             <option value="Pendente">Status</option>
@@ -158,67 +167,18 @@ const Body = () => {
         </div>
         <h4>Observação</h4>
         <textarea rows="4" name="observacao" onChange={inputValue}></textarea>
-        <div class="btn-block">
+        <div className="btn-block">
           <button type="submit" className="botaoForm" href="/">Agendar</button>
         </div>    
         </form>
     </div>
-            {/*        
-            <form id="product_form" onSubmit={cadProduct}>
-            <div className='bodyModal container'>
-                <div className=''>
-                    <div className="principal d-flex">
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Empresa:</p>
-                            <input id="nomeEmpresa" type="text" name="nomeEmpresa" onChange={inputValue}  className="form-control inputForm"  aria-describedby="inputGroup-sizing-sm"/>
-                        </div>
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Cliente:</p>
-                            <input id="produtoContratado" type="text" name="produtoContratado"  onChange={inputValue} className="form-control inputForm"  aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Produto:</p>
-                            <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputForm" aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                    </div>
-                    <div className="principal d-flex">
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Telefone:</p>
-                            <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputForm" aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Data:</p>
-                            <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputForm" aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Horário: </p>
-                            <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputForm" aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                    </div>
-                    <div className="principal d-flex">                                 
-                        <div className="input-group-sm mb-1 labelForm">
-                            <p className='titleForms'>Observação: </p>
-                            <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputForm" aria-describedby="inputGroup-sizing-sm"/>                    
-                        </div>
-                </div> 
-                <div className='botoesModal'>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                    <button type="submit" className="botaoSalvar btn btn-primary" onClick={handleClose}>Save Changes</button> 
-                </div>
-            </div>
-            <br/><br/>                    
-        </div>         
-    </form> 
-    */}
             </Modal.Body>
             </Modal>
             <div className='addagendDiv'>
-                        <table class="table table-borderless">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
-                                <th scope="col"></th>
+                                <th scope="col">#</th>
                                     <th scope="col">Empresa</th>
                                     <th scope="col">Cliente</th>
                                     <th scope="col">Produto</th>
@@ -231,11 +191,11 @@ const Body = () => {
                                     <th scope="col">Observacao</th>
                                 </tr>
                             </thead>
-                            <tbody> {
-                                typeof products !== "undefined" && Object.values(products).map((produc) => {
+                            <tbody>{
+                                typeof products !== "undefined" && Object.values(products).map((produc, index) => {
                                     return (
-                                        <tr className='agendRows'>
-                                            <th scope="row"></th>
+                                        <tr className='agendRows' key={index}>
+                                            <td>{index+1}</td>
                                             <td>{produc.nomeEmpresa}</td>                                            
                                             <td>{produc.nomeCliente}</td>
                                             <td>{produc.produtoContratado}</td>
@@ -250,86 +210,9 @@ const Body = () => {
                                     );
                                 })
                             }
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
-                                <tr>
-                                    <th className="" scope="row"></th>
-                                    <td>45</td>
-                                    <td>43</td>
-                                    <td>45</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                </tr>
                             </tbody>
                         </table>
                       </div>
-      {/*<div className="todoExemplo">
-      <div className="serror">                  
-        {status.type === 'erro'?<div className="serror">{status.message}</div> : ""} 
-        {status.type === 'success'?<div className="serror">{status.message}</div> : ""} 
-      </div>
-      <form id="product_form" onSubmit={cadProduct}>
-        <div className='container all'>
-            <div className=''>  
-                              
-                <div className="input-group-sm mb-1 d-flex text">
-                    <p className=''>SKU</p>
-                    <input id="nomeEmpresa" type="text" name="nomeEmpresa" onChange={inputValue}  className="form-control inputSku"  aria-describedby="inputGroup-sizing-sm"/>
-
-                </div>
-                <div className="input-group-sm mb-1 d-flex text">
-                    <p className=''>Name</p>
-                    <input id="produtoContratado" type="text" name="produtoContratado"  onChange={inputValue} className="form-control inputName"  aria-describedby="inputGroup-sizing-sm"/>                    
-                </div>
-                <div className="input-group-sm mb-1 d-flex text">
-                    <p className=''>Price($)</p>
-                    <input id="date" type="text" name="date" onChange={inputValue} className="form-control inputPrice" aria-describedby="inputGroup-sizing-sm"/>                    
-                </div>
-            </div>
-            <br/><br/>                  
-        </div>         
-        </form> 
-    </div>        */}
             </div>
         </div>
       </>
