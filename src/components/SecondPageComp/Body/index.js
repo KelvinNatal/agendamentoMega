@@ -2,12 +2,15 @@ import './style.css'
 import { useEffect, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
 import {useNavigate} from 'react-router-dom';
+import { IoMdSearch } from "react-icons/io";
+import { FaCalendarAlt } from "react-icons/fa";
+import { TiFilter } from "react-icons/ti";
 
 const Body = () => {
 
     const [show, setShow] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);    
 
     const navigate = useNavigate();
     
@@ -21,7 +24,7 @@ const Body = () => {
         status: '',
         analista: '',
         comercial: '',
-        observacao: ''       
+        observacao: ''     
     });    
 
     const inputValue = (e) => {
@@ -30,11 +33,22 @@ const Body = () => {
         console.log(product)   
     }
 
+    const [filtro, setFiltro] = useState({
+      dataInicial: null,
+      dataFinal: null
+    });  
+
+    const inputFiltro = (e) => {
+      var dataI = document.getElementById('inputInicial').value; 
+      var dataF = document.getElementById('inputFinal').value;
+      
+      setFiltro({dataInicial: dataI, dataFinal: dataF});      
+    }
     const inputD = () => {
         var date = document.getElementById('dateCalendar').value;
         var array = date.split('-');
         var dataFinal = `${array[2]}/${array[1]}/${array[0]}`;
-        setProduct({...product, data: dataFinal});
+        setProduct({...product, data: date});
     }
 
     const handleClose = () => {
@@ -44,9 +58,9 @@ const Body = () => {
     function handleShow(breakpoint) {
         setFullscreen(breakpoint);
         setShow(true);
-      }      
-    
-    const getProducts = async () => {
+      }    
+      
+      const getProducts = async () => {
         await fetch("http://localhost/final/index.php/agendamentos", {
             method: "GET"
         })
@@ -56,8 +70,33 @@ const Body = () => {
         });
     };
 
-    const cadProduct = async () =>{      
-        console.log(product)                  
+    const getFilter = (e) => {
+      var dataI = document.getElementById('inputInicial').value; 
+      var dataF = document.getElementById('inputFinal').value; 
+      const filtroTeste = {
+        dataInicial: dataI,
+        dataFinal: dataF
+      }     
+      console.log(filtroTeste)
+      e.preventDefault();
+        fetch(`http://localhost/final/index.php/filtrar`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+                body: JSON.stringify({filtroTeste})         
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+              console.log(responseJson);
+                setProducts(responseJson.listaFiltro);
+            }).catch((error)=>{                
+                console.log(error)
+            })                
+    }   
+
+    const cadProduct = async () =>{           
             await fetch("http://localhost/final/index.php/criarAgendamento",{ 
             method: "POST",
             headers: {
@@ -68,13 +107,13 @@ const Body = () => {
             })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
             }).catch((err)=>{                
                 console.log(err);
-            })                            
+            })                         
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         getProducts();
     }, [])    
 
@@ -84,16 +123,32 @@ const Body = () => {
          }else{
             navigate('/');
          }         
-    }, [navigate])
-    
+    }, [navigate]);
+
+    const [filter, setFilter] = useState('');
+
+    const searchText = (event) =>{
+      setFilter(event.target.value);
+    }
+  let dataSearch = products.filter(item=>{
+    return Object.keys(item).some(key=>
+        item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
+      )
+  });    
     
     return (       
       <>
-      <div className="todoConteudologin d-flex">
-            <div className='conjuntoUser'>
-            <div className='btnAgend' onClick={handleShow}>
-                <p>+ Agendamento</p>
-            </div>
+      <div className="todoConteudoAdd d-flex">
+            <div className='conjuntoAdd'>
+              <div className='cabeButtons d-flex'>
+                <div className='btnAgend' onClick={handleShow}>
+                    <p>+</p>
+                </div>
+                <div className='pesquisaFiltro'>
+                  <input type="Text" placeholder="Insira..." id="inputFiltro" value={filter} onChange={searchText.bind(this)}></input>
+                  <IoMdSearch className="fa addIcons"/>
+                </div>
+              </div>
             <Modal  dialogClassName='mod' fullscreen={fullscreen} show={show} onHide={handleClose} animation={true}>
               <Modal.Header closeButton className="modd">
                 <Modal.Title>Criar Agendamento</Modal.Title>
@@ -162,6 +217,7 @@ const Body = () => {
           <select id="status" name="status" onChange={inputValue}>
             <option value="Pendente">Status</option>
               <option value="Pendente">Pendente</option>
+              <option value="Andamento">Andamento</option>
               <option value="Feito">Feito</option>
             </select>
         </div>
@@ -174,7 +230,7 @@ const Body = () => {
     </div>
             </Modal.Body>
             </Modal>
-            <div className='addagendDiv'>
+            <div className='addagendDiv d-flex'>
                         <table className="table table-borderless">
                             <thead>
                                 <tr>
@@ -182,7 +238,7 @@ const Body = () => {
                                     <th scope="col">Empresa</th>
                                     <th scope="col">Cliente</th>
                                     <th scope="col">Produto</th>
-                                    <th scope="col">comercial</th>
+                                    <th scope="col">Comercial</th>
                                     <th scope="col">Telefone</th>
                                     <th scope="col">Data</th>
                                     <th scope="col">Horário</th>
@@ -192,7 +248,7 @@ const Body = () => {
                                 </tr>
                             </thead>
                             <tbody>{
-                                typeof products !== "undefined" && Object.values(products).map((produc, index) => {
+                                typeof products !== "undefined" && Object.values(dataSearch).map((produc, index) => {
                                     return (
                                         <tr className='agendRows' key={index}>
                                             <td>{index+1}</td>
@@ -213,7 +269,34 @@ const Body = () => {
                             </tbody>
                         </table>
                       </div>
-            </div>
+                      <form onSubmit={getFilter}>
+                      <div className='filtroDiv'>
+                        <div className='btnFiltro'>
+                            <p>Data</p>
+                        </div>
+                        <div className="tituloFiltro">
+                          <p>Data Inicial:</p>
+                        </div>
+                        <div className='filterSearch'>
+                        <div class="select">
+                          <div className="">
+                          <input type="date" name="dataInicial" className="inputF" id="inputInicial"/>
+                          <FaCalendarAlt className="calendarIcon" id="calendarI"/>
+                          </div>
+                          <div className="subtituloFiltro">
+                            <p>Data Final:</p>
+                          </div>                          
+                          <div className="inputFiltroDiv">
+                            <input type="date" name="dataFinal" className="inputF" id="inputFinal"/>
+                            <FaCalendarAlt className="calendarIcon" id="calendarF"/>
+                            <button type="submit" className="botaoFiltro" href="/"><TiFilter className="filterIcons"/></button>
+                           </div>
+                          </div>
+                        </div>                        
+                    </div>
+                    </form>
+            </div>     
+            
         </div>
       </>
     );

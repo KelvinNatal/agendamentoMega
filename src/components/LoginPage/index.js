@@ -14,7 +14,7 @@ const Register = () => {
 
     const loginn = () => {
         if(user.username !== '' && user.password !==''){
-        fetch(`http://localhost/final/index.php/login`,{ 
+        fetch(`http://localhost/final/index.php/login`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

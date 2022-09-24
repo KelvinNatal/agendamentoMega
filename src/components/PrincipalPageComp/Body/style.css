@@ -86,7 +86,7 @@ Header{
 
 .dashCard{
     width: 20vw;
-    height: 200px;
+    height: 150px;
     border-radius: 15px;
     margin-top: 4px;
     margin-right: 25px;
@@ -97,7 +97,7 @@ Header{
     margin-right: 15px;
     font-size: 22pt;
     margin-bottom: 10px;
-    margin-top: 90px;
+    margin-top: 45px;
 }
 
 .tituloCard, .subtitleCard{
@@ -109,7 +109,7 @@ Header{
 }
 
 .subtitleCard{
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 18pt;
 }
 
@@ -127,7 +127,7 @@ Header{
     margin-left: 5px;
     margin-top: 5px;
     width: 19.4vw;
-    height: 202px;
+    height: 152px;
     background: linear-gradient(87deg, rgba(195,34,34,1) 0%, rgba(253,146,45,1) 92%);
     z-index: -1;
     filter: blur(10px);
@@ -147,7 +147,7 @@ Header{
     margin-left: 5px;
     margin-top: 5px;
     width: 19.4vw;
-    height: 202px;
+    height: 152px;
     background: linear-gradient(63deg, rgba(45,60,253,1) 0%, rgba(195,34,172,1) 100%);
     z-index: -1;
     filter: blur(10px);
@@ -167,7 +167,7 @@ Header{
     margin-left: 5px;
     margin-top: 5px;
     width: 19.4vw;
-    height: 202px;
+    height: 152px;
     background: linear-gradient(63deg, rgba(253,244,45,1) 0%, rgba(34,195,169,1) 100%);
     z-index: -1;
     filter: blur(10px);
@@ -187,7 +187,7 @@ Header{
     position: absolute;
     margin-left: 5px;
     margin-top: 5px;
-    height: 202px;
+    height: 152px;
     background: linear-gradient(63deg, rgba(253,45,241,1) 0%, rgba(195,34,34,1) 100%);
     z-index: -1;
     filter: blur(10px);
@@ -238,7 +238,7 @@ Header{
     height: 74vh;
     background-color: #fff;
     margin: 0 auto;
-    margin-top: 3vw;
+    margin-top: 2vw;
     overflow-y: scroll;
     z-index: 2;
 }

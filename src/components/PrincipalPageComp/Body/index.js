@@ -71,9 +71,6 @@ const Body = () => {
                             </div>
                         </div>
                     </div>
-                    <div id='buttonDash'>
-                        <p>+ Agendamento</p>
-                    </div>
                     <div className='agendamentosDiv'>
                         <table className="table table-borderless">
                             <thead>

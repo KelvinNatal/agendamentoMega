@@ -60,47 +60,6 @@
     margin-bottom: -3px;
 }
 
-.logoNav{
-    width: 85px;
-    height: 85px;
-}
-
-.teste{
-    width: 85px;
-    height: 60px; 
-    padding-top: 6px;   
-    margin-left: -5px;
-}
-
-.teste:hover{
-    background-color: #494949;  
-    transition: 0.05s;
-    opacity: 1;
-    box-shadow: -2px -1px 16px 5px rgba(0,0,0,0.43)
-}
-
-.navIcons{
-    width: 40px;
-    height: 40px;
-    color: white;
-    margin-left: 22px;
-}
-
-#navUse{
-    justify-content: center;
-    color: white;
-    filter: contrast(100%);
-    margin-left: 26px;
-}
-
-.iconsNav{
-    margin-top: 150px;
-}
-
-.icones{
-    margin-left: 5px;
-    padding-bottom: 5px;
-}
 
 .btnMenu{    
     padding-right: 2px;

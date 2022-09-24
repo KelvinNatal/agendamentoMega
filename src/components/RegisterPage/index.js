@@ -33,6 +33,7 @@ const Register = () => {
         })
         .then((response) => response.json())
         .then((responseJson) => {
+            console.log(responseJson.listaUsuarios)
             setUsers(responseJson.listaUsuarios);
         });
     };
@@ -87,7 +88,7 @@ const Register = () => {
                                 onChange={inputValue}></input>
                             <button type="submit" className="btnLogin btn btn-primary" onClick={cadUsuario}>Registrar</button>
                         </div>  
-            </div>
+                </div>
             </form>
     </Modal.Body>
             </Modal>
@@ -107,7 +108,7 @@ const Register = () => {
                                         <tr className='userRow' key={index}>
                                             <td>{index+1}</td>
                                             <td className='fontTable'>{user.username}</td>                                            
-                                            <td className='fontTable'>Admin</td>
+                                            <td className='fontTable'>{user.cargo}</td>
                                             <td className='fontTable'></td>
                                         </tr>
                                     );

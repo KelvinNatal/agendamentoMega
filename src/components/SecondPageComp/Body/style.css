@@ -3,6 +3,18 @@
   width: 100%;
 }
 
+.todoConteudoAdd{
+  background-color: rgb(233, 230, 230);
+  width: 100%;
+}
+
+.conjuntoAdd{
+  width: 85vw;
+  height: 100vh;
+  margin-left: 10vw;
+  z-index: 1;
+}
+
 .top{
   margin-bottom: -20px;
   padding-left: 108px;
@@ -82,30 +94,136 @@
 
 
 .btnAgend{
-  width: 200px;
-  height: 6.3vh;
+  width: 40px;
+  height: 40px;
   background: rgb(41, 41, 248);
   color: white;
-  padding-top: 1vh;
-  border-radius: 10px;
-  margin-top: -15px;
-  position: absolute;
+  padding-top: 5px;
+  border-radius: 25px;
+  margin-top: -5px;
   text-align: center;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
   font-size: 14pt;
   box-shadow: 0px -10px 30px -2px rgb(182, 181, 181, .4);
   z-index: 0;
+  cursor: pointer;
 }
 
 .btnAgend:hover{
   background: rgb(2, 2, 202);
 }
 
+.btnPesquisa{
+  width: 40px;
+  height: 40px;
+  background: rgb(41, 41, 248);
+  color: white;
+  padding-top: 5px;
+  border-radius: 25px;
+  margin-top: -5px;
+  position: relative;
+  margin-left: 10px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+  box-shadow: 0px -10px 30px -2px rgb(182, 181, 181, .4);
+  z-index: 0;
+  cursor: pointer;
+}
+
+.btnPesquisa:hover{
+  background: rgb(2, 2, 202);
+}
+
+.addIcons{
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.icon{
+}
+
+/*Pesquisa Personalizada*/
+.pesquisaFiltro{
+  top: 50%;
+  left: 2%;
+  margin-top: -5px;
+  margin-left: 10px;
+  transform: translate(-50%,-50%);
+  transition: all 1s;
+  transform: scaleX(-1);
+  width: 40px;
+  height: 40px;
+  background: rgb(41, 41, 248);
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: 4px solid rgb(41, 41, 248);
+}
+
+#inputFiltro{
+  position: absolute;
+  transform: scaleX(-1);
+  top: 0;
+  left: -8px;
+  width: 100%;
+  height: 100%;
+  line-height: 30px;
+  outline: 0;
+  border: 0;
+  display: none;
+  font-size: 1em;
+  border-radius: 20px;
+}
+
+.fa{
+  box-sizing: border-box;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  border-radius: 50%;
+  color: #fcfcfc;
+  text-align: center;
+  font-size: 1.2em;
+  transition: all 1s;
+}
+
+.pesquisaFiltro:hover,
+.pesquisaFiltro:valid{
+  width: 250px;
+  cursor: pointer;
+}
+
+.pesquisaFiltro:hover #inputFiltro,
+.pesquisaFiltro:valid #inputFiltro{
+  display: block;
+  padding-left: 40px;
+}
+
+.pesquisaFiltro:hover .fa,
+.pesquisaFiltro:valid .fa{
+  background: #07051a;
+  color: white;
+  margin-top: 1px;
+}
+
+
+.btnPesquisa:valid a {
+display: block;
+}
+
+/*-------------*/
+
 .addagendDiv{
   display: flex;
-  width: 100%;
-  height: 74vh;
+  width: 78%;
+  height: 77vh;
+  float: left;
   background-color: #fff;
   margin: 0 auto;
   margin-top: 3vw;
@@ -115,7 +233,8 @@
 }
 
 .addagendDiv::-webkit-scrollbar{
-  width: 8px;  
+  width: 8px;
+  display: none;  
 }
 
 .addagendDiv::-webkit-scrollbar-track {
@@ -133,8 +252,37 @@
   position: absolute;
   margin-top: 9px;
   margin-left: 12px;
-  width: 84vw;
+  width: 65.1vw;
   height: 74vh;
+  background: rgb(156, 156, 156);
+  z-index: -1;
+  filter: blur(20px);
+}
+
+
+.filtroDiv{
+  width: 17vw;
+  float: left;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 3vw;
+  margin-left: 20px;
+  overflow-y: scroll;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+.filtroDiv::-webkit-scrollbar{
+  display: none;  
+}
+
+.filtroDiv::before {
+  content: "";
+  position: absolute;
+  margin-top: 9px;
+  width: 15vw;
+  margin-left: 15px;
+  height: 32vh;
   background: rgb(156, 156, 156);
   z-index: -1;
   filter: blur(20px);
@@ -164,6 +312,7 @@
   float: right;
   margin-top: 38vh;
   margin-right: -75px;
+  
 }
 
 .botaoSalvar{
@@ -184,7 +333,166 @@
   padding: 0px;
 }
 
-/*Formulario*/
+.cabeButtons{
+  width: 85vw;
+  height: 4vh;
+  margin-top: 100px;
+  margin-bottom: -25px;
+}
+
+.btnFiltro{  
+  width: 85%;
+  height: 40px;
+  background: rgb(37, 37, 37);
+  text-align: center;
+  padding-top: 6px;
+  color: white;
+  border-radius: 13px;
+  margin: 15px auto;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+}
+
+/* Filtro */
+
+.tituloFiltro{
+  margin-top: 20px;
+  margin-left: 1.25vw;
+  margin-bottom: -10px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+}
+
+.subtituloFiltro{
+  margin-top: 10px;
+  margin-bottom: -25px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  margin-left: 1.25vw;
+}
+.select {
+  position: relative;
+  display: inline-block;
+  width: 85%;
+}    .select select {
+      margin: 0 1.25vw;
+      font-family: 'Arial';
+      width: 100%;
+      cursor: pointer;
+      padding: 10px 15px;
+      outline: 0;
+      border: 1px solid #dad7d7;
+      border-radius: 15px;
+      background: #f7f5f5;
+      color: #aaa7a7;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  }
+      .select select::-ms-expand {
+          display: none;
+      }
+      .select select:hover,
+      .select select:focus {
+          color: #000000;
+          background: #ececec;
+      }
+      .select select:disabled {
+          opacity: 0.4;
+          pointer-events: none;
+          
+      }
+.select_arrow {
+  position: absolute;
+  top: 16px;
+  right: 5px;
+  width: 0px;
+  height: 0px;
+  border: solid #b1aeae;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+  border-color: #888787;
+}
+.select select:disabled ~ .select_arrow {
+  border-top-color: #cccccc;
+  
+}
+
+.inputFiltroDiv{
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 15px;
+  margin-bottom: 30px;
+}
+
+.calendarIcon{
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  z-index: 1;
+  right: -10px;
+}
+
+#calendarI{
+  right: -10px;
+  top: 10px;
+}
+
+#calendarF{
+  bottom: 92px;
+}
+
+.botaoFiltro{
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  color: #f7f5f5;
+  margin-left: 52%;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  border: none;
+  background: rgb(37, 37, 37);
+}
+
+.botaoFiltro:hover{
+  background: rgb(10, 10, 10);
+}
+
+.filterIcons{
+  width: 22px;
+  height: 22px;
+  color: white;
+  margin-bottom: 1px;
+  margin-left: 1px;
+}
+
+.inputF{
+  margin: 0 1.25vw;
+  font-family: 'Arial';
+  width: 100%;
+  padding: 10px 15px;
+  outline: 0;
+  border: 1px solid #dad7d7;
+  border-radius: 15px;
+  background: #f7f5f5;
+  color: #aaa7a7;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 2;
+}
+
+#inputF::-webkit-calendar-picker-indicator {
+  right: 35%;
+}
+
+/* Formulario */
   h1 {
   margin: 15px 0;
   font-weight: 400;
@@ -282,8 +590,8 @@
   left: 59%;
   top: 30%;
   }
-  [type="date"]::-webkit-calendar-picker-indicator {
-  left: 60%;
+  #dateCalendar::-webkit-calendar-picker-indicator {
+  left: 58%;
   }
   .street, .desired-outcome-item, .complaint-details-item {
   width: 70%;
