@@ -3,6 +3,7 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 
+
 const Body = () => {
 
     const [agendamentos, setAgendamentos] = useState([]);
@@ -16,10 +17,11 @@ const Body = () => {
         })
         .then((response) => response.json())
         .then((responseJson) => {
+            console.log(responseJson)
             setAgendamentos(responseJson.listaAgendamentos)
             setRelatorios(responseJson.relatorios[0].totalAgendamentos);
         });
-    };
+    };     
 
     useEffect(() => {
         getProducts();

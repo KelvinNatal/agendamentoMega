@@ -2,12 +2,20 @@ import { Link } from 'react-router-dom';
 import logo from '../../agendaIcon.png';
 import { TiHome } from "react-icons/ti";
 import { TbCalendarTime } from "react-icons/tb";
-import { FaClipboardList, FaUserCog } from "react-icons/fa";
-
 import './style.css'
+import Cargos from './Cargos';
 
 const NavBar = () => {
-    
+
+var obj = JSON.parse(sessionStorage.getItem('userData'));
+
+const choose = () => {
+    if(obj.userData.cargo !== "Analista"){
+        return <Cargos/>;
+    }else{
+        return <div></div>;
+    }
+}
     return ( 
     <>
     <header className="head">
@@ -26,17 +34,10 @@ const NavBar = () => {
                     <Link to="/addproduct"><TbCalendarTime className="navIcons"/></Link>
                 </div>
             </div>
-            <div className="icones">
-                <div className=" teste">
-                    <Link to="/addproduct"><FaClipboardList className="navIcons"/></Link>
-                </div>
+            <div id="divCargo">      
+                {choose()}           
             </div>
-            <div className="icones">
-                <div className=" teste">
-                    <Link to="/register"><FaUserCog className="navIcons" id="navUse"/></Link>
-                </div>
-            </div>
-            </div>
+          </div>
         </nav>
     </header>
     </>

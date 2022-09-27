@@ -5,14 +5,15 @@ import './style.css'
 
 const NavLine = (props) => {
 
+    var obj = JSON.parse(sessionStorage.getItem('userData'));
+
     const navigate = useNavigate();
 
     const logout = () => {
         sessionStorage.setItem("userData", '');
         sessionStorage.clear();
         navigate('/');
-    }
-    
+    }    
 
     return (
         <>
@@ -26,8 +27,8 @@ const NavLine = (props) => {
                         <div className="perfilDiv d-flex" onClick={logout}>
                             <HiUserCircle className='perfIcon'/>
                             <div className='descPerfil'>
-                                <p className='titlePerfil' id="subtitlePerfil">Kelvin Natal</p>
-                                <p className='titlePerfil'>Analista</p>
+                                <p className='titlePerfil' id="subtitlePerfil">{obj.userData.username}</p>
+                                <p className='titlePerfil'>{obj.userData.cargo}</p>
                             </div>
                         </div>
                     </div>

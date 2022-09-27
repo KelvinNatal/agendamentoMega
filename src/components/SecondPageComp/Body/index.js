@@ -33,17 +33,6 @@ const Body = () => {
         console.log(product)   
     }
 
-    const [filtro, setFiltro] = useState({
-      dataInicial: null,
-      dataFinal: null
-    });  
-
-    const inputFiltro = (e) => {
-      var dataI = document.getElementById('inputInicial').value; 
-      var dataF = document.getElementById('inputFinal').value;
-      
-      setFiltro({dataInicial: dataI, dataFinal: dataF});      
-    }
     const inputD = () => {
         var date = document.getElementById('dateCalendar').value;
         var array = date.split('-');
@@ -58,7 +47,8 @@ const Body = () => {
     function handleShow(breakpoint) {
         setFullscreen(breakpoint);
         setShow(true);
-      }    
+      } 
+      var obj = JSON.parse(sessionStorage.getItem('userData'));
       
       const getProducts = async () => {
         await fetch("http://localhost/final/index.php/agendamentos", {
@@ -70,6 +60,28 @@ const Body = () => {
         });
     };
 
+    const getAgendamentos = () => {
+      const userAgend = {
+        username: obj.userData.username,
+        cargo: obj.userData.cargo
+      }     
+        fetch(`http://localhost/final/index.php/useragend`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+                body: JSON.stringify({userAgend})         
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+              console.log(responseJson);
+                setProducts(responseJson.listaUseragend);
+            }).catch((error)=>{                
+                console.log(error)
+            })                
+    } 
+
     const getFilter = (e) => {
       var dataI = document.getElementById('inputInicial').value; 
       var dataF = document.getElementById('inputFinal').value; 
@@ -77,7 +89,6 @@ const Body = () => {
         dataInicial: dataI,
         dataFinal: dataF
       }     
-      console.log(filtroTeste)
       e.preventDefault();
         fetch(`http://localhost/final/index.php/filtrar`,{
             method: "POST",
@@ -113,8 +124,12 @@ const Body = () => {
             })                         
     }
 
-    useEffect(() => {        
+    useEffect(() => {  
+      if(obj.userData.cargo === "Admin"){
         getProducts();
+      }else{
+        getAgendamentos();
+      }        
     }, [])    
 
     useEffect(() => {
@@ -154,7 +169,7 @@ const Body = () => {
                 <Modal.Title>Criar Agendamento</Modal.Title>
              </Modal.Header>
             <Modal.Body className="modd">
-            <div class="">
+            <div className="">
             <form id="product_form" onSubmit={cadProduct}>
         <div className='dataHora' >
             <div className="item">
@@ -278,7 +293,7 @@ const Body = () => {
                           <p>Data Inicial:</p>
                         </div>
                         <div className='filterSearch'>
-                        <div class="select">
+                        <div className="select">
                           <div className="">
                           <input type="date" name="dataInicial" className="inputF" id="inputInicial"/>
                           <FaCalendarAlt className="calendarIcon" id="calendarI"/>

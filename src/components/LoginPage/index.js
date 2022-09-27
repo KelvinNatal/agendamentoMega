@@ -2,6 +2,8 @@ import './style.css'
 import logo from '../../agendaIcon.png';
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import HomePage from '../../pages/HomePage';
+import NavLine from '../navLine';
 
 const Register = () => {
 
@@ -23,10 +25,10 @@ const Register = () => {
                 body: JSON.stringify({user})         
             })
             .then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson)
+            .then((responseJson) => { 
+                console.log(responseJson.userData);               
                 if(responseJson.userData){
-                    sessionStorage.setItem('userData', responseJson);
+                    sessionStorage.setItem('userData', JSON.stringify(responseJson));
                     navigate('/homepage');
                 }else{
                     console.log('Login error');
@@ -36,14 +38,17 @@ const Register = () => {
             })      
         }            
     }
+
+
+    <NavLine username = 'Kelvin' />
   
-    useEffect(() => {
+   /*useEffect(() => {
         if(sessionStorage.getItem('userData') !== null){            
             navigate('/homepage');
          }else{
             navigate('/');
          }         
-    }, [navigate])
+    }, [navigate])*/
     
     return (
         <>

@@ -3,7 +3,8 @@ import NavLine from "../../components/navLine";
 import Body from "../../components/PrincipalPageComp/Body"
 
 
-const HomePage = () => {
+const HomePage = (props) => {
+  console.log(props.username);
     return (
         <>
         <div className="scroll">
