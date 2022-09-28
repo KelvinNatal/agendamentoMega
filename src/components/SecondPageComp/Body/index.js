@@ -49,36 +49,29 @@ const Body = () => {
         setShow(true);
       } 
       var obj = JSON.parse(sessionStorage.getItem('userData'));
-      
-      const getProducts = async () => {
-        await fetch("http://localhost/final/index.php/agendamentos", {
-            method: "GET"
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-            setProducts(responseJson.listaAgendamentos);
-        });
-    };
 
     const getAgendamentos = () => {
-      const userAgend = {
+      const userRel = {
         username: obj.userData.username,
         cargo: obj.userData.cargo
       }     
-        fetch(`http://localhost/final/index.php/useragend`,{
+        fetch(`http://localhost/final/index.php/agendamentos`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-                body: JSON.stringify({userAgend})         
+                body: JSON.stringify({userRel})         
             })
             .then((response) => response.json())
-            .then((responseJson) => {
-              console.log(responseJson);
-                setProducts(responseJson.listaUseragend);
+            .then((responseJson) => { 
+              if(obj.userData.cargo === "Admin"){
+                 setProducts(responseJson.listaAgendamentos);  
+              }else{
+                 setProducts(responseJson.listaUseragend);
+              }                          
             }).catch((error)=>{                
-                console.log(error)
+                console.log(error);
             })                
     } 
 
@@ -124,12 +117,8 @@ const Body = () => {
             })                         
     }
 
-    useEffect(() => {  
-      if(obj.userData.cargo === "Admin"){
-        getProducts();
-      }else{
-        getAgendamentos();
-      }        
+    useEffect(() => {   
+      getAgendamentos();  
     }, [])    
 
     useEffect(() => {

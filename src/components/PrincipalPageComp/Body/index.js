@@ -3,7 +3,6 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 
-
 const Body = () => {
 
     const [agendamentos, setAgendamentos] = useState([]);
@@ -11,7 +10,9 @@ const Body = () => {
 
     const navigate = useNavigate();
 
-    const getProducts = async () => {
+    var obj = JSON.parse(sessionStorage.getItem('userData'));
+
+    /*const getProducts = async () => {
         await fetch("http://localhost/final/index.php/agendamentos", {
             method: "GET"
         })
@@ -21,10 +22,37 @@ const Body = () => {
             setAgendamentos(responseJson.listaAgendamentos)
             setRelatorios(responseJson.relatorios[0].totalAgendamentos);
         });
-    };     
+    }; */
+    
+    const getAgendamentos = () => {
+        const userRel = {
+          username: obj.userData.username,
+          cargo: obj.userData.cargo
+        }     
+          fetch(`http://localhost/final/index.php/agendamentos`,{
+              method: "POST",
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+                  body: JSON.stringify({userRel})         
+              })
+              .then((response) => response.json())
+              .then((responseJson) => {
+                setAgendamentos(responseJson.listaAgendamentos);   
+                if(obj.userData.cargo !== "Admin"){
+                    setRelatorios(responseJson.listUserrel[0].totalAgendUser);
+                }else{
+                    setRelatorios(responseJson.relatorios[0].totalAgendamentos);
+                }                          
+              }).catch((error)=>{                
+                  console.log(error);
+              })                
+      } 
 
     useEffect(() => {
-        getProducts();
+        //getProducts();
+        getAgendamentos();
     }, [])
 
     useEffect(() => {
