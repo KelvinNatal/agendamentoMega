@@ -1,9 +1,7 @@
 import './style.css'
 import logo from '../../agendaIcon.png';
-import {useNavigate} from 'react-router-dom';
-import {useEffect, useState} from 'react';
-import HomePage from '../../pages/HomePage';
-import NavLine from '../navLine';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Register = () => {
 
@@ -13,7 +11,6 @@ const Register = () => {
 
     const inputValue = e => setUser({...user, [e.target.name]: e.target.value});
 
-
     const loginn = () => {
         if(user.username !== '' && user.password !==''){
         fetch(`http://localhost/final/index.php/login`,{
@@ -22,7 +19,7 @@ const Register = () => {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-                body: JSON.stringify({user})         
+                body: JSON.stringify({ user })         
             })
             .then((response) => response.json())
             .then((responseJson) => { 
@@ -38,9 +35,6 @@ const Register = () => {
             })      
         }            
     }
-
-
-    <NavLine username = 'Kelvin' />
   
    /*useEffect(() => {
         if(sessionStorage.getItem('userData') !== null){            
@@ -66,7 +60,7 @@ const Register = () => {
                             <input id="inputeId" type="text" className=" inpute form-control" placeholder="Digite seu usuário" name="username"
                                 onChange={inputValue}></input>
                             <h5 className='campos'>Senha de acesso:</h5>
-                            <input type="text" className=" inpute form-control" placeholder="Digite sua senha" name="password"
+                            <input type="password" className=" inpute form-control" placeholder="Digite sua senha" name="password"
                                 onChange={inputValue}></input>
                             <button type="submit" className="btnLogin btn btn-primary" onClick={loginn}>Logar</button>
                         </div>

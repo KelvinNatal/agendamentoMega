@@ -5,33 +5,48 @@ import {useNavigate} from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
 import { TiFilter } from "react-icons/ti";
+import { FaTrashAlt } from "react-icons/fa";
+import { GoPencil } from "react-icons/go";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import UpdateAgend from './updateAgend';
 
 const Body = () => {
 
     const [show, setShow] = useState(false);
+    const [input, setInput] = useState([]);
+    const [show2, setShow2] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
-    const [products, setProducts] = useState([]);    
+    const [fullscreen2, setFullscreen2] = useState(true);
+    const [products, setProducts] = useState([]);  
+     
 
     const navigate = useNavigate();
     
     const [product, setProduct] = useState({
         nomeEmpresa: '',
-        nomeCliente: '',
-        produtoContratado: '',
-        telefoneCliente: '',
         data: '',
         horario: '',
         status: '',
         analista: '',
-        comercial: '',
         observacao: ''     
     });    
+
+    const [status, setStatus] = useState({
+      type: '',
+      message: ''
+  })
 
     const inputValue = (e) => {
         let valor = e.target.value;
         setProduct({...product, [e.target.name]: valor});    
         console.log(product)   
     }
+
+    const handleChange = (e) => {
+      const name = e.target.name;
+      const value = e.target.value;
+      setProduct(values => ({...values, [name]: value}));
+  }
 
     const inputD = () => {
         var date = document.getElementById('dateCalendar').value;
@@ -47,6 +62,15 @@ const Body = () => {
     function handleShow(breakpoint) {
         setFullscreen(breakpoint);
         setShow(true);
+      } 
+
+      const handleClose2 = () => {
+        setShow2(false)
+    };
+
+    function handleShow2(breakpoint) {
+        setFullscreen2(breakpoint);
+        setShow2(true);
       } 
       var obj = JSON.parse(sessionStorage.getItem('userData'));
 
@@ -78,7 +102,7 @@ const Body = () => {
     const getFilter = (e) => {
       var dataI = document.getElementById('inputInicial').value; 
       var dataF = document.getElementById('inputFinal').value; 
-      const filtroTeste = {
+      const filtroAgend = {
         dataInicial: dataI,
         dataFinal: dataF
       }     
@@ -89,18 +113,18 @@ const Body = () => {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-                body: JSON.stringify({filtroTeste})         
+                body: JSON.stringify({filtroAgend})         
             })
             .then((response) => response.json())
             .then((responseJson) => {
-              console.log(responseJson);
                 setProducts(responseJson.listaFiltro);
             }).catch((error)=>{                
                 console.log(error)
             })                
     }   
 
-    const cadProduct = async () =>{           
+    const cadProduct = async (e) =>{ 
+      e.preventDefault();        
             await fetch("http://localhost/final/index.php/criarAgendamento",{ 
             method: "POST",
             headers: {
@@ -111,10 +135,31 @@ const Body = () => {
             })
             .then((response) => response.json())
             .then((responseJson) => {
-                //console.log(responseJson);
+              if(responseJson.erro){                 
+                setStatus({
+                    type: 'erro',
+                    message: responseJson.message
+                })
+             }else{
+               navigate('/homepage');
+             }
             }).catch((err)=>{                
                 console.log(err);
             })                         
+    }
+
+    const altProduct = () => {
+
+    }
+
+    const deleteAgend = async (id) => {
+      await fetch(`http://localhost/final/index.php/${id}/delagend`,{
+        method: 'DELETE'       
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {      
+        getAgendamentos();          
+      })
     }
 
     useEffect(() => {   
@@ -134,18 +179,19 @@ const Body = () => {
     const searchText = (event) =>{
       setFilter(event.target.value);
     }
-  let dataSearch = products.filter(item=>{
-    return Object.keys(item).some(key=>
-        item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
-      )
-  });    
+    
+      var dataSearch = products.filter(item=>{
+        return Object.keys(item).some(key=>
+            item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
+          )
+      });
     
     return (       
       <>
       <div className="todoConteudoAdd d-flex">
             <div className='conjuntoAdd'>
               <div className='cabeButtons d-flex'>
-                <div className='btnAgend' onClick={handleShow}>
+                <div className='btnAgend' onClick={() => handleShow()}>
                     <p>+</p>
                 </div>
                 <div className='pesquisaFiltro'>
@@ -182,30 +228,7 @@ const Body = () => {
         <div className="item">
           <p>Empresa</p>
           <input type="text" name="nomeEmpresa" placeholder="First" onChange={inputValue} />
-        </div>
-        <div className="item">
-          <p>Cliente</p>
-          <input type="text" name="nomeCliente" onChange={inputValue} />
-        </div>
-        <div className="item">
-          <p>Telefone</p>
-          <input type="text" name="telefoneCliente" onChange={inputValue} />
-        </div>
-        <div className="item">
-          <p>Produto</p>
-          <input type="text" name="produtoContratado" onChange={inputValue} />
-        </div>
-        <div className="item">
-          <p>Comercial</p>
-          <select id="comercial" name="comercial" onChange={inputValue}>
-              <option value="">Comercial</option>
-              <option value="Mariana">Mariana</option>
-              <option value="Pamela">Pamela</option>
-              <option value="Alef">Alef</option>
-              <option value="Cleiton">Cleiton</option>
-              <option value="Elieser">Elieser</option>
-              <option value="Junior">Junior</option>
-            </select>
+          {status.type === 'erro'?<div className="serror">{status.message}</div> : ""} 
         </div>
         <div className="item">
           <p>Analista</p>
@@ -228,51 +251,79 @@ const Body = () => {
         <h4>Observação</h4>
         <textarea rows="4" name="observacao" onChange={inputValue}></textarea>
         <div className="btn-block">
-          <button type="submit" className="botaoForm" href="/">Agendar</button>
+          <button type="submit" className="botaoForm">Agendar</button>
         </div>    
         </form>
     </div>
             </Modal.Body>
             </Modal>
             <div className='addagendDiv d-flex'>
-                        <table className="table table-borderless">
-                            <thead>
-                                <tr>
-                                <th scope="col">#</th>
-                                    <th scope="col">Empresa</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col">Produto</th>
-                                    <th scope="col">Comercial</th>
-                                    <th scope="col">Telefone</th>
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Horário</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Analista</th>
-                                    <th scope="col">Observacao</th>
-                                </tr>
-                            </thead>
-                            <tbody>{
-                                typeof products !== "undefined" && Object.values(dataSearch).map((produc, index) => {
-                                    return (
-                                        <tr className='agendRows' key={index}>
-                                            <td>{index+1}</td>
-                                            <td>{produc.nomeEmpresa}</td>                                            
-                                            <td>{produc.nomeCliente}</td>
-                                            <td>{produc.produtoContratado}</td>
-                                            <td>{produc.comercial}</td>
-                                            <td>{produc.telefoneCliente}</td>
-                                            <td>{produc.data}</td>
-                                            <td>{produc.horario}</td>
-                                            <td>{produc.status}</td>
-                                            <td>{produc.analista}</td>
-                                            <td>{produc.observacao}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                            </tbody>
-                        </table>
+                      <div className='tudoCardAgend'>
+                        <div className="cabecalhoCardAgend d-flex">
+                          <div className='cabeEmpAgend'>Empresa</div>
+                          <div className='cabeCliAgend'>Cliente</div>
+                          <div className='cabeTelAgend'>Telefone</div>
+                          <div className='cabeDatAgend'>Data</div>
+                          <div className='cabeHorAgend'>Horário</div>
+                          <div className='cabeStaAgend'>Status</div>
+                          <div className='cabeAnaAgend'>Analista</div>
+                          <div className='cabeObsAgend'>Observação</div>
+                          <div className='cabeOpc'>Opções</div>
+                        </div>
+                        {
+                                typeof products !== "undefined" && Object.values(dataSearch).map((produc, index) => 
+                                
+                      <div className="agendCardAgend d-flex" key={index}>
+                            <div className="empresaDivAgend">
+                            {produc.nomeEmpresa}
+                            </div>
+                            <div className="clienteDivAgend">
+                            {produc.cliente}
+                            </div>
+                            <div className="telefoneDivAgend">
+                            {produc.telCliente}
+                            </div>
+                            <div className="dataDivAgend">
+                            {produc.data}
+                            </div>
+                            <div className="horarioDivAgend">
+                            {produc.horario}
+                            </div>
+                            <div className="statusDivAgend">
+                            {produc.status}
+                            </div>
+                            <div className="analistaDivAgend">
+                            {produc.analista}
+                            </div>
+                            <div className="obsDivAgend">
+                            {produc.observacao}
+                            </div>
+                            <div className="opcoesDiv">
+                                <div className="opcButtons d-flex">
+                                      <button className='buttonsOpc' id="bt1Apag" onClick={() => deleteAgend(produc.id)}>
+                                        <FaTrashAlt className="opcIcons"/>
+                                      </button>
+                                    <div className='buttonsOpc' id="bt2" onClick={handleShow2}>
+                                      <GoPencil className="opcIcons"/>
+                                    </div>
+                                    <div className='buttonsOpc' id="bt3">
+                                    <BsThreeDotsVertical className="opcIcons"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <Modal  dialogClassName='mod' fullscreen={fullscreen2} show={show2} onHide={handleClose2} animation={true}>
+              <Modal.Header closeButton className="modd">
+                <Modal.Title>Alterar Agendamento</Modal.Title>
+             </Modal.Header>
+            <Modal.Body className="modd">
+                <UpdateAgend agendId = {produc.analista}/>
+            </Modal.Body>
+            </Modal>
                       </div>
+                    )
+                }
+                      </div>                      
+                      </div>                      
                       <form onSubmit={getFilter}>
                       <div className='filtroDiv'>
                         <div className='btnFiltro'>

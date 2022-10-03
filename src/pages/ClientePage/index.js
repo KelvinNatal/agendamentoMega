@@ -1,18 +1,17 @@
+import ClienteP from "../../components/ClienteP";
 import NavBar from "../../components/navbar";
 import NavLine from "../../components/navLine";
-import Body from "../../components/PrincipalPageComp/Body"
 
-
-const HomePage = () => {
+const ClientePage = () => {
     return (
         <>
         <div className="scroll">
-          <NavLine name="Dashboard"/>
+          <NavLine name="Empresas"/>
           <NavBar/>
-          <Body />
+          <ClienteP />
         </div>
         </>
     );
 };
 
-export default HomePage;
+export default ClientePage;

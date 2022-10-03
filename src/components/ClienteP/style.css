@@ -3,12 +3,12 @@
   width: 100%;
 }
 
-.todoConteudoAdd{
+.todoConteudoCli{
   background-color: rgb(233, 230, 230);
-  width: 100%;
+  width: 100vw;
 }
 
-.conjuntoAdd{
+.conjuntoCli{
   width: 85vw;
   height: 100vh;
   margin-left: 10vw;
@@ -219,7 +219,7 @@ display: block;
 
 /*-------------*/
 
-.addagendDiv{
+.addCliDiv{
   display: flex;
   width: 78%;
   height: 77vh;
@@ -232,22 +232,22 @@ display: block;
   border-radius: 10px;
 }
 
-.addagendDiv::-webkit-scrollbar{
+.addCliDiv::-webkit-scrollbar{
   width: 8px;
   display: none;  
 }
 
-.addagendDiv::-webkit-scrollbar-track {
+.addCliDiv::-webkit-scrollbar-track {
   background: rgb(255, 255, 255);
   border-radius: 25px;         /* color of the tracking area */
 }
 
-.addagendDiv::-webkit-scrollbar-thumb {
+.addCliDiv::-webkit-scrollbar-thumb {
   background-color: rgb(177, 177, 177);    /* color of the scroll thumb */
   border-radius: 25px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
 }
 
-.addagendDiv::before {
+.addCliDiv::before {
   content: "";
   position: absolute;
   margin-top: 9px;
@@ -611,93 +611,76 @@ display: block;
   textarea {
   width: calc(100% - 6px);
   }
-  .serror{
-    margin-left: 20px;
-    font-weight: bold;
-    font-size:12;
-    color: red;
-  }
   }
 
-.tudoCardAgend{
-  width: 99.5%;
+.tudoCard{
+  position: absolute;
+  width: 100%;
 }
 
-.cabecalhoCardAgend{
-  width: 99.5%;
+.cabecalhoCard{
+  width: 65.8%;
   height: 38px;
   position: relative;
-  margin-left: 5px;
+  margin-left: 4px; 
 }
 
-.agendCardAgend{
-  width: 99.5%;
-  height:60px; 
+.agendCard{
+  width: 65.8%;
+  height:60px;
+  margin-left: 4px;  
+  position: relative;
   border-radius: 8px;
   margin-top: 5px;
-  margin-left: 5px;
 }
 
-.agendCardAgend:hover{
+.agendCard:hover{
   background-color: #e4e1e1;
 }
 
-.cabeEmpAgend, .cabeCliAgend, .cabeTelAgend, .cabeDatAgend, .cabeHorAgend, .cabeStaAgend, .cabeAnaAgend, .cabeObsAgend, .cabeOpc{
+.cabeEmp, .cabeCli, .cabeTel, .cabeDat, .cabeHor, .cabeSta, .cabeAna, .cabeObs, .cabeOpc{
   text-align: center;
   padding: 10px 0;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
 }
 
-.empresaDivAgend, .clienteDivAgend, .telefoneDivAgend, .dataDivAgend, .horarioDivAgend, .statusDivAgend, .analistaDivAgend, .obsDivAgend, .opcoesDiv{
+.empresaDiv, .clienteDiv, .telefoneDiv, .comercialDiv, .produtoDiv, .planoDiv, .ramaisDiv, .dataDiv, .opcoesDiv{
   text-align: center;
   padding: 15px 0;
 }
 
-.empresaDivAgend, .cabeEmpAgend{
-  width: 13%;
-  height: 100%;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 5px;  
-}
-.clienteDivAgend, .cabeCliAgend{
-  width: 11%;
-  height: 100%;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;  
-}
-.telefoneDivAgend, .cabeTelAgend{
+.empresaDiv, .cabeEmp{
   width: 11%;
   height: 100%; 
 }
-.dataDivAgend, .cabeDatAgend{
+.clienteDiv, .cabeCli{
+  width: 12%;
+  height: 100%; 
+}
+.telefoneDiv, .cabeTel{
+  width: 12%;
+  height: 100%; 
+}
+.comercialDiv, .cabeDat{
   width: 10%;
   height: 100%; 
 }
-.horarioDivAgend, .cabeHorAgend{
+.produtoDiv, .cabeHor{
   width: 10%;
   height: 100%;
 }
-.statusDivAgend, .cabeStaAgend{
-  width: 9%;
-  height: 100%;  
-}
-.analistaDivAgend, .cabeAnaAgend{
-  width: 13%;
-  height: 100%;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
-}
-.obsDivAgend, .cabeObsAgend{
+.planoDiv, .cabeSta{
   width: 11%;
   height: 100%;
-  white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+}
+.ramaisDiv, .cabeAna{
+  width: 11%;
+  height: 100%;
+}
+.dataDiv, .cabeObs{
+  width: 11%;
+  height: 100%;
 }
 .opcoesDiv, .cabeOpc{
   width: 12%;

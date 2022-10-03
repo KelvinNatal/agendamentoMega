@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../agendaIcon.png';
 import { TiHome } from "react-icons/ti";
 import { TbCalendarTime } from "react-icons/tb";
+import { FaClipboardList } from "react-icons/fa";
 import './style.css'
 import Cargos from './Cargos';
 
@@ -32,6 +33,11 @@ const choose = () => {
             <div className="icones">
                 <div className=" teste">
                     <Link to="/addproduct"><TbCalendarTime className="navIcons"/></Link>
+                </div>
+            </div>
+            <div className="icones" >
+                <div className=" teste">
+                    <Link to="/addcliente"><FaClipboardList className="navIcons"/></Link>
                 </div>
             </div>
             <div id="divCargo">      

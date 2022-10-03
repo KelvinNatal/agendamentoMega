@@ -2,6 +2,11 @@ import './style.css'
 import { useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
+import { FaUser } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
+import { GoPencil } from "react-icons/go";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
 
 const Register = () => {
 
@@ -55,6 +60,17 @@ const Register = () => {
             })                            
     }
 
+    const deleteUser= async (id) => {
+        await fetch(`http://localhost/final/index.php/${id}/delUser`,{
+          method: 'DELETE'       
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {      
+          console.log(responseJson);
+          getUsers();          
+        })
+      }
+
     useEffect(() => {
         getUsers();
     }, [])
@@ -71,7 +87,9 @@ const Register = () => {
         <>
             <div className="todoConteudoRegister d-flex">
             <div className='conjuntoUser'>
-            <div className="btnUser" onClick={handleShow}>+Usuário</div>
+            <div className='btnUser' onClick={handleShow}>
+                    <p>+</p>
+                </div>
             <Modal  dialogClassName='regMod' fullscreen={fullscreen} show={show} onHide={handleClose} animation={true}>
               <Modal.Header>
                 <Modal.Title>Criar Usuário</Modal.Title>
@@ -92,31 +110,33 @@ const Register = () => {
             </form>
     </Modal.Body>
             </Modal>
-            <div className='UsersDiv'>
-                        <table className="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Usuário</th>
-                                    <th scope="col">Cargo</th>
-                                    <th scope="col">Editar</th>
-                                </tr>
-                            </thead>
-                            <tbody>{
+                        <div className='d-flex '>
+                        {
                                 typeof users !== "undefined" && Object.values(users).map((user, index) => {
                                     return (
-                                        <tr className='userRow' key={index}>
-                                            <td>{index+1}</td>
-                                            <td className='fontTable'>{user.username}</td>                                            
-                                            <td className='fontTable'>{user.cargo}</td>
-                                            <td className='fontTable'></td>
-                                        </tr>
-                                    );
+                        <div className="card userCard" key={user.user_id}>
+                            <h5 className="card-title titleCard">{user.cargo}</h5>
+                        <div className="card-body bodyC">
+                            <FaUser className="userIcon" id=""/>
+                            <p className="card-text userTitle">{user.username}</p>
+                        </div>
+                        <div className="bottomCard">
+                        <div className="opcoesUser">
+                                <div className="opcUsers d-flex">
+                                    <button className='buttonsUser' id="bt1Apag" onClick={() => deleteUser(user.user_id)}>
+                                       <FaTrashAlt className="opcIcons"/>
+                                    </button>
+                                    <div className='buttonsUser' id="bu2">
+                                        <GoPencil className="opcIcons"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    );
                                 })
                             }
-                            </tbody>
-                        </table>
-                      </div>
+                            </div>
                 </div>
             </div>
         </>

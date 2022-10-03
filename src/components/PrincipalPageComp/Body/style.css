@@ -19,6 +19,7 @@ Header{
 .todoConteudo{
     padding-top: 100px;
     overflow-x: hidden;
+    width: 100vw;
     white-space: nowrap;
 }
 
@@ -233,18 +234,21 @@ Header{
 }
 
 .agendamentosDiv{
-    display: flex;
-    width: 100%;
-    height: 74vh;
-    background-color: #fff;
-    margin: 0 auto;
-    margin-top: 2vw;
-    overflow-y: scroll;
-    z-index: 2;
+        display: flex;
+        width: 78%;
+        height: 58vh;
+        float: left;
+        background-color: #fff;
+        margin: 0 auto;
+        margin-top: -8vh;
+        overflow-y: scroll;
+        z-index: 2;
+        border-radius: 10px;
 }
 
 .agendamentosDiv::-webkit-scrollbar{
     width: 8px;  
+    display: none;
 }
 
 .agendamentosDiv::-webkit-scrollbar-track {
@@ -259,22 +263,144 @@ Header{
 
 .agendamentosDiv::before {
     content: "";
-    position: absolute;
-    margin-top: 9px;
-    margin-left: 12px;
-    width: 84vw;
-    height: 74vh;
-    background: rgb(156, 156, 156);
-    z-index: -1;
-    filter: blur(20px);
+  position: absolute;
+  margin-top: 9px;
+  margin-left: 12px;
+  width: 65.1vw;
+  height: 57.5vh;
+  background: rgb(156, 156, 156);
+  z-index: -1;
+  filter: blur(20px);
   }
 
 .agendRows:hover{
     background-color: rgb(235, 232, 232);
 }
 
+.filtroDivDash{
+    width: 17vw;
+    float: left;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: -8vh;
+    margin-left: 20px;
+    overflow-y: scroll;
+    z-index: 2;
+    border-radius: 10px;
+  }
+  
+  .filtroDivDash::-webkit-scrollbar{
+    display: none;  
+  }
+  
+  .filtroDivDash::before {
+    content: "";
+    position: absolute;
+    margin-top: 9px;
+    width: 15vw;
+    margin-left: 15px;
+    height: 34vh;
+    background: rgb(156, 156, 156);
+    z-index: -1;
+    filter: blur(20px);
+  }
+
   .titleTable{
     background-color: aqua;
   }
 
+  .tudoCardDash{
+    width: 99.5%;
+  }
+  
+  .cabecalhoCardDash{
+    width: 99.5%;
+    height: 38px;
+    position: relative;
+    margin-left: 5px;
+  }
+  
+  .agendCardDash{
+    width: 99.5%;
+    height:60px; 
+    border-radius: 8px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .agendCardDash:hover{
+    background-color: #e4e1e1;
+  }
+  
+
+  
+.cabeEmpDash, .cabeCliDash, .cabeTelDash, .cabeDatDash, .cabeHorDash, .cabeStaDash, .cabeAnaDash, .cabeObsDash, .cabeOpc{
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+  }
+  
+  .empresaDivDash, .clienteDivDash, .telefoneDivDash, .dataDivDash, .horarioDivDash, .statusDivDash, .analistaDivDash, .obsDivDash, .opcoesDiv{
+    text-align: center;
+    padding: 15px 0;
+  }
+  
+  .empresaDivDash, .cabeEmpDash{
+    width: 13%;
+    height: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 5px;  
+  }
+  .clienteDivDash, .cabeCliDash{
+    width: 11%;
+    height: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;  
+  }
+  .telefoneDivDash, .cabeTelDash{
+    width: 11%;
+    height: 100%; 
+  }
+  .dataDivDash, .cabeDatDash{
+    width: 10%;
+    height: 100%; 
+  }
+  .horarioDivDash, .cabeHorDash{
+    width: 10%;
+    height: 100%;
+  }
+  .statusDivDash, .cabeStaDash{
+    width: 9%;
+    height: 100%;  
+  }
+  .analistaDivDash, .cabeAnaDash{
+    width: 13%;
+    height: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .obsDivDash, .cabeObsDash{
+    width: 11%;
+    height: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  
+
+  #bt1Apag{
+    border: none;
+    background-color: rgb(226, 45, 45);
+    padding-bottom: 2px;
+  }
+
+  #bt1Apag:hover{
+    background-color: rgb(185, 5, 5);
+  }
 
