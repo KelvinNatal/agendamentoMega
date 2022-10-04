@@ -1,18 +1,19 @@
 import './style.css';
 import React from 'react';
-import {useEffect, useState} from "react";
-import {useNavigate} from 'react-router-dom';
-import { FaTrashAlt } from "react-icons/fa";
-import { GoPencil } from "react-icons/go";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaCalendarAlt } from "react-icons/fa";
-import { TiFilter } from "react-icons/ti";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Body = () => {
 
     const [agendamentos, setAgendamentos] = useState([]);
-    const [relatorio, setRelatorios] = useState([]);
-    const [deletar, setDeletar] = useState('');
+
+    const [relatorio, setRelatorios] = useState({
+      total: '',
+      realizados: '',
+      pendentes: '',
+      andamento: ''
+    });
+    //const [deletar, setDeletar] = useState('');
 
     const navigate = useNavigate();
 
@@ -29,51 +30,52 @@ const Body = () => {
             setRelatorios(responseJson.relatorios[0].totalAgendamentos);
         });
     }; */
-    
-    const getAgendamentos = () => {
-        const userRel = {
-          username: obj.userData.username,
-          cargo: obj.userData.cargo
-        }     
-          fetch(`http://localhost/final/index.php/agendamentos`,{
-              method: "POST",
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-              },
-                  body: JSON.stringify({userRel})         
-              })
-              .then((response) => response.json())
-              .then((responseJson) => {
-                if(responseJson !== ''){
-                setAgendamentos(responseJson.listaAgendamentos);   
-                if(obj.userData.cargo !== "Admin"){
-                    setRelatorios(responseJson.listUserrel[0].totalAgendUser);
-                }else{
-                    setRelatorios(responseJson.relatorios[0].totalAgendamentos);
-                }    
-              }else{
-                return <div></div>;
-              }                      
-              }).catch((error)=>{                
-                  console.log(error);
-              })                
-      } 
 
-      const deleteAgend = async (id) => {
+      /*const deleteAgend = async (id) => {
           await fetch(`http://localhost/final/index.php/${id}/delagend`,{
             method: 'DELETE'       
           })
           .then((response) => response.json())
           .then((responseJson) => {      
-            console.log(responseJson);
             getAgendamentos();          
           })
-        }
+        }*/
 
     useEffect(() => {
-        getAgendamentos();
-    }, [])
+      const userRel = {
+        username: obj.userData.username,
+        cargo: obj.userData.cargo
+      }     
+        fetch(`http://localhost/final/index.php/agendamentos`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+                body: JSON.stringify({userRel})         
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+              if(responseJson !== ''){
+                setAgendamentos(responseJson.listaAgendamentos);   
+              if(obj.userData.cargo !== "Admin"){
+                setRelatorios({ total : responseJson.listUserrel[0].totalAgendUser,
+                                realizado: responseJson.realizadoUser[0].realizadoUser,
+                                pendente: responseJson.pendenteUser[0].pendenteUser,
+                                andamento: responseJson.andamentoUser[0].andamentoUser});
+              }else{
+                setRelatorios({total : responseJson.relatorios[0].totalAgendamentos,
+                               realizado: responseJson.realizado[0].realizado,
+                               pendente: responseJson.pendente[0].pendente,
+                               andamento: responseJson.andamento[0].andamento});
+              }    
+            }else{
+              return <div></div>;
+            }                      
+            }).catch((error)=>{                
+                console.log(error);
+            }) 
+    }, [obj])
 
     useEffect(() => {
         if(sessionStorage.getItem('userData') !== null){            
@@ -93,7 +95,7 @@ const Body = () => {
                               <p>Total</p>
                             </div>
                             <div className='tituloCard'>
-                              <p>{relatorio}</p>
+                              <p>{relatorio.total}</p>
                             </div>
                         </div>
                         <div className='dashCard' id="secondCard">
@@ -101,7 +103,7 @@ const Body = () => {
                                 <p>Realizados</p>
                             </div>
                             <div className='tituloCard'>
-                                <p>5</p>
+                                <p>{relatorio.realizado}</p>
                             </div>
                         </div>
                         <div className='dashCard' id="thirdCard">
@@ -109,7 +111,7 @@ const Body = () => {
                                 <p>Pendentes</p>
                             </div>
                             <div className='tituloCard'>
-                              <p>2</p>
+                              <p>{relatorio.pendente}</p>
                             </div>
                         </div>
                         <div className='dashCard' id="lastCard">
@@ -117,7 +119,7 @@ const Body = () => {
                                 <p>Em treinamento</p>
                             </div>
                             <div className='tituloCard'>
-                              <p>3</p>
+                              <p>{relatorio.andamento}</p>
                             </div>
                         </div>
                     </div>
@@ -132,7 +134,6 @@ const Body = () => {
                           <div className='cabeStaDash'>Status</div>
                           <div className='cabeAnaDash'>Analista</div>
                           <div className='cabeObsDash'>Observação</div>
-                          <div className='cabeOpc'>Opções</div>
                         </div>
                         {typeof agendamentos !== "undefined" && Object.values(agendamentos).map((agendamento, index) => {
                                     return (
@@ -161,19 +162,6 @@ const Body = () => {
                             <div className="obsDivDash">
                             {agendamento.observacao}
                             </div>
-                            <div className="opcoesDiv">
-                                <div className="opcButtons d-flex" >
-                                      <button className='buttonsOpc' id="bt1Apag" onClick={() => deleteAgend(agendamento.id)}>
-                                        <FaTrashAlt className="opcIcons"/>
-                                      </button>
-                                    <div className='buttonsOpc' id="bt2">
-                                        <GoPencil className="opcIcons"/>
-                                    </div>
-                                    <div className='buttonsOpc' id="bt3">
-                                        <BsThreeDotsVertical className="opcIcons"/>
-                                    </div>
-                                </div>
-                            </div>
                       </div>
                       );
                     })
@@ -182,25 +170,13 @@ const Body = () => {
                       </div>
                       <div className='filtroDivDash'>
                         <div className='btnFiltro'>
-                            <p>Data</p>
+                            <p>Exemplo</p>
                         </div>
                         <div className="tituloFiltro">
-                          <p>Data Inicial:</p>
+                          <p></p>
                         </div>
                         <div className='filterSearch'>
                         <div className="select">
-                          <div className="">
-                          <input type="date" name="dataInicial" className="inputF" id="inputInicial"/>
-                          <FaCalendarAlt className="calendarIcon" id="calendarI"/>
-                          </div>
-                          <div className="subtituloFiltro">
-                            <p>Data Final:</p>
-                          </div>                          
-                          <div className="inputFiltroDiv">
-                            <input type="date" name="dataFinal" className="inputF" id="inputFinal"/>
-                            <FaCalendarAlt className="calendarIcon" id="calendarF"/>
-                            <button type="submit" className="botaoFiltro" href="/"><TiFilter className="filterIcons"/></button>
-                           </div>
                           </div>
                         </div>                        
                     </div>

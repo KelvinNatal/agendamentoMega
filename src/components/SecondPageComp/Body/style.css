@@ -642,14 +642,14 @@ display: block;
   background-color: #e4e1e1;
 }
 
-.cabeEmpAgend, .cabeCliAgend, .cabeTelAgend, .cabeDatAgend, .cabeHorAgend, .cabeStaAgend, .cabeAnaAgend, .cabeObsAgend, .cabeOpc{
+.cabeEmpAgend, .cabeCliAgend, .cabeTelAgend, .cabeDatAgend, .cabeHorAgend, .cabeStaAgend, .cabeAnaAgend, .cabeObsAgend, .cabeOpcAgend{
   text-align: center;
   padding: 10px 0;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
 }
 
-.empresaDivAgend, .clienteDivAgend, .telefoneDivAgend, .dataDivAgend, .horarioDivAgend, .statusDivAgend, .analistaDivAgend, .obsDivAgend, .opcoesDiv{
+.empresaDivAgend, .clienteDivAgend, .telefoneDivAgend, .dataDivAgend, .horarioDivAgend, .statusDivAgend, .analistaDivAgend, .obsDivAgend, .opcoesDivAgend{
   text-align: center;
   padding: 15px 0;
 }
@@ -699,23 +699,26 @@ display: block;
     overflow: hidden;
     text-overflow: ellipsis; 
 }
-.opcoesDiv, .cabeOpc{
-  width: 12%;
+.opcoesDivAgend, .cabeOpcAgend{
+  width: 13%;
   height: 100%;
 }
 
-.opcButtons{
-  width: 85%;
-  height: 95%;
+.opcButtonsAgend{
+  width: 40%;
+  height: 100%;
   margin: 0 auto;
 }
 
-.buttonsOpc{
-  width: 30%;
+.buttonsOpcAgend{
+  width: 25px;
   height: 100%;
   background-color: #ececec;
   margin-right: 9px;
   border-radius: 6px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border: none;
   cursor: pointer;
 }
 
@@ -723,21 +726,21 @@ display: block;
   color: white;
 }
 
-#bt1{
+#bt1ApagAgend{
   background-color: rgb(226, 45, 45);
 }
 
-#bt1:hover{
+#bt1ApagAgend:hover{
   background-color: rgb(185, 5, 5);
 }
 
-#bt2{
-background: rgb(41, 41, 248);
+#bt2EditAgend{
+  background: rgb(41, 41, 248);
 }
 
-#bt2:hover{
+#bt2EditAgend:hover{
   background: rgb(3, 3, 177);
-  }
+}
 
 #bt3{
   background: rgb(34, 34, 34);
@@ -746,5 +749,31 @@ background: rgb(41, 41, 248);
 
 #bt3:hover{
   background: rgb(0, 0, 0);
+}
+
+.corpoPagina{
+  width: 100vw;
+  height: 100vh; 
+  background-color: rgb(233, 230, 230);
+  z-index: 0;
+}
+
+.corpoUpdate{
+  margin: 15vh 33vw;
+  width: 40vw;
+  height: 480px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.corpoUpdate::before {
+  content: "";
+  position: absolute;
+  width: 39vw;
+  height: 480px;
+  background: rgb(156, 156, 156);
+  z-index: -1;
+  filter: blur(20px);
 }
 

@@ -1,11 +1,10 @@
 import './style.css'
-import { useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import { FaUser } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { GoPencil } from "react-icons/go";
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const Register = () => {
@@ -16,7 +15,8 @@ const Register = () => {
 
     const [user, setUser] = useState({
         username: '',
-        password: ''       
+        password: '',
+        cargo: ''      
     }); 
 
     const handleClose = () => {
@@ -30,6 +30,13 @@ const Register = () => {
 
     const inputValue = e => setUser({...user, [e.target.name]: e.target.value});
 
+    /*const inputNome = () => {
+        var nome = document.getElementById('nome').value;
+        var sobrenome = document.getElementById('sobrenome').value;
+        var username = `${nome} ${sobrenome}`;
+        setUser({...user, username: username});
+    }*/
+
     const navigate = useNavigate();
 
     const getUsers = async () => {
@@ -38,12 +45,11 @@ const Register = () => {
         })
         .then((response) => response.json())
         .then((responseJson) => {
-            console.log(responseJson.listaUsuarios)
             setUsers(responseJson.listaUsuarios);
         });
     };
 
-    const cadUsuario = async () =>{                     
+    const cadUsuario = async () =>{                   
             await fetch("http://localhost/final/index.php/registrar",{ 
             method: "POST",
             headers: {
@@ -54,7 +60,7 @@ const Register = () => {
             })
             .then((response) => response.json())
             .then((responseJson) => {
-                
+                //console.log(responseJson);
             }).catch((err)=>{                
                 console.log(err);
             })                            
@@ -91,23 +97,33 @@ const Register = () => {
                     <p>+</p>
                 </div>
             <Modal  dialogClassName='regMod' fullscreen={fullscreen} show={show} onHide={handleClose} animation={true}>
-              <Modal.Header>
+              <Modal.Header closeButton>
                 <Modal.Title>Criar Usuário</Modal.Title>
              </Modal.Header>
             <Modal.Body className="modd">
             <form onSubmit={cadUsuario}>
-            <div className='boxReg'>
-                        <div className="inputsRegis">
-                            <h5 className='campos'>Usuário de acesso:</h5>
-                            <input id="inputeId" type="text" className=" inpute form-control" placeholder="Digite seu usuário" name="username"
-                                onChange={inputValue}></input>
-                            <h5 className='campos'>Senha de acesso:</h5>
-                            <input type="text" className=" inpute form-control" placeholder="Digite sua senha" name="password"
-                                onChange={inputValue}></input>
-                            <button type="submit" className="btnLogin btn btn-primary" onClick={cadUsuario}>Registrar</button>
-                        </div>  
-                </div>
-            </form>
+        <div className='dataHora' >
+        </div>
+        <div className="item">
+          <p>Nome</p>
+          <input type="text" name='username' id="nome" placeholder="Nome" onChange={inputValue} />
+        </div>
+        <div className="item">
+          <p>Senha</p>
+          <input type="password" name="password" placeholder="Senha" onChange={inputValue} />
+        </div>
+        <div className="item">
+          <p>Cargo</p>
+          <select id="analista" name="cargo" onChange={inputValue}>
+              <option value="">Cargo</option>
+              <option value="Admin">Admin</option>
+              <option value="Analista">Analista</option>
+            </select>
+        </div>
+        <div className="btn-block">
+          <button type="submit" className="botaoForm">Cadastrar</button>
+        </div>    
+        </form>
     </Modal.Body>
             </Modal>
                         <div className='d-flex '>
@@ -123,12 +139,15 @@ const Register = () => {
                         <div className="bottomCard">
                         <div className="opcoesUser">
                                 <div className="opcUsers d-flex">
-                                    <button className='buttonsUser' id="bt1Apag" onClick={() => deleteUser(user.user_id)}>
+                                <Link className="link" to={`/register/${user.user_id}/edituser`}>
+                                    <button className='buttonsUser' id="bu2">
+                                        <GoPencil className="opcIcons"/>
+                                    </button>
+                                    </Link>
+                                    <button className='buttonsUser' id="bt1ApagUser" onClick={() => deleteUser(user.user_id)}>
                                        <FaTrashAlt className="opcIcons"/>
                                     </button>
-                                    <div className='buttonsUser' id="bu2">
-                                        <GoPencil className="opcIcons"/>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

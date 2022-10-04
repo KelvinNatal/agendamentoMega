@@ -22,8 +22,7 @@ const Register = () => {
                 body: JSON.stringify({ user })         
             })
             .then((response) => response.json())
-            .then((responseJson) => { 
-                console.log(responseJson.userData);               
+            .then((responseJson) => {           
                 if(responseJson.userData){
                     sessionStorage.setItem('userData', JSON.stringify(responseJson));
                     navigate('/homepage');

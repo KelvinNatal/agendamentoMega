@@ -235,12 +235,12 @@ Header{
 
 .agendamentosDiv{
         display: flex;
-        width: 78%;
+        width: 74.5%;
         height: 58vh;
         float: left;
         background-color: #fff;
         margin: 0 auto;
-        margin-top: -8vh;
+        margin-top: -5vh;
         overflow-y: scroll;
         z-index: 2;
         border-radius: 10px;
@@ -266,7 +266,7 @@ Header{
   position: absolute;
   margin-top: 9px;
   margin-left: 12px;
-  width: 65.1vw;
+  width: 62.2vw;
   height: 57.5vh;
   background: rgb(156, 156, 156);
   z-index: -1;
@@ -278,12 +278,12 @@ Header{
 }
 
 .filtroDivDash{
-    width: 17vw;
+    width: 19vw;
     float: left;
     background-color: #fff;
     margin: 0 auto;
-    margin-top: -8vh;
-    margin-left: 20px;
+    margin-top: -5vh;
+    margin-left: 28px;
     overflow-y: scroll;
     z-index: 2;
     border-radius: 10px;
@@ -297,9 +297,9 @@ Header{
     content: "";
     position: absolute;
     margin-top: 9px;
-    width: 15vw;
+    width: 17.5vw;
     margin-left: 15px;
-    height: 34vh;
+    height: 70px;
     background: rgb(156, 156, 156);
     z-index: -1;
     filter: blur(20px);
@@ -355,18 +355,18 @@ Header{
     padding-left: 5px;  
   }
   .clienteDivDash, .cabeCliDash{
-    width: 11%;
+    width: 14%;
     height: 100%;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;  
   }
   .telefoneDivDash, .cabeTelDash{
-    width: 11%;
+    width: 12%;
     height: 100%; 
   }
   .dataDivDash, .cabeDatDash{
-    width: 10%;
+    width: 13%;
     height: 100%; 
   }
   .horarioDivDash, .cabeHorDash{
@@ -378,7 +378,7 @@ Header{
     height: 100%;  
   }
   .analistaDivDash, .cabeAnaDash{
-    width: 13%;
+    width: 14%;
     height: 100%;
     white-space: nowrap; 
     overflow: hidden;

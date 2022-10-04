@@ -1,24 +1,18 @@
 import './style.css'
 import { useEffect, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
-import {useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
 import { TiFilter } from "react-icons/ti";
 import { FaTrashAlt } from "react-icons/fa";
 import { GoPencil } from "react-icons/go";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import UpdateAgend from './updateAgend';
 
 const Body = () => {
 
     const [show, setShow] = useState(false);
-    const [input, setInput] = useState([]);
-    const [show2, setShow2] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
-    const [fullscreen2, setFullscreen2] = useState(true);
-    const [products, setProducts] = useState([]);  
-     
+    const [products, setProducts] = useState([]);       
 
     const navigate = useNavigate();
     
@@ -42,16 +36,10 @@ const Body = () => {
         console.log(product)   
     }
 
-    const handleChange = (e) => {
-      const name = e.target.name;
-      const value = e.target.value;
-      setProduct(values => ({...values, [name]: value}));
-  }
-
     const inputD = () => {
         var date = document.getElementById('dateCalendar').value;
-        var array = date.split('-');
-        var dataFinal = `${array[2]}/${array[1]}/${array[0]}`;
+        //var array = date.split('-');
+        //var dataFinal = `${array[2]}/${array[1]}/${array[0]}`;
         setProduct({...product, data: date});
     }
 
@@ -62,42 +50,10 @@ const Body = () => {
     function handleShow(breakpoint) {
         setFullscreen(breakpoint);
         setShow(true);
-      } 
 
-      const handleClose2 = () => {
-        setShow2(false)
-    };
-
-    function handleShow2(breakpoint) {
-        setFullscreen2(breakpoint);
-        setShow2(true);
-      } 
-      var obj = JSON.parse(sessionStorage.getItem('userData'));
-
-    const getAgendamentos = () => {
-      const userRel = {
-        username: obj.userData.username,
-        cargo: obj.userData.cargo
-      }     
-        fetch(`http://localhost/final/index.php/agendamentos`,{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-                body: JSON.stringify({userRel})         
-            })
-            .then((response) => response.json())
-            .then((responseJson) => { 
-              if(obj.userData.cargo === "Admin"){
-                 setProducts(responseJson.listaAgendamentos);  
-              }else{
-                 setProducts(responseJson.listaUseragend);
-              }                          
-            }).catch((error)=>{                
-                console.log(error);
-            })                
-    } 
+      }
+    
+    var obj = JSON.parse(sessionStorage.getItem('userData'));
 
     const getFilter = (e) => {
       var dataI = document.getElementById('inputInicial').value; 
@@ -141,15 +97,11 @@ const Body = () => {
                     message: responseJson.message
                 })
              }else{
-               navigate('/homepage');
+              window.location.reload(); 
              }
             }).catch((err)=>{                
                 console.log(err);
             })                         
-    }
-
-    const altProduct = () => {
-
     }
 
     const deleteAgend = async (id) => {
@@ -158,13 +110,34 @@ const Body = () => {
       })
       .then((response) => response.json())
       .then((responseJson) => {      
-        getAgendamentos();          
+        window.location.reload();          
       })
     }
 
     useEffect(() => {   
-      getAgendamentos();  
-    }, [])    
+      const userRel = {
+        username: obj.userData.username,
+        cargo: obj.userData.cargo
+      }     
+        fetch(`http://localhost/final/index.php/agendamentos`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+                body: JSON.stringify({userRel})         
+            })
+            .then((response) => response.json())
+            .then((responseJson) => { 
+              if(obj.userData.cargo === "Admin"){
+                 setProducts(responseJson.listaAgendamentos);  
+              }else{
+                 setProducts(responseJson.listaUseragend);
+              }                          
+            }).catch((error)=>{                
+              console.log(error);
+            })     
+    }, [obj])    
 
     useEffect(() => {
         if(sessionStorage.getItem('userData') !== null){            
@@ -179,12 +152,16 @@ const Body = () => {
     const searchText = (event) =>{
       setFilter(event.target.value);
     }
-    
+
+    if(products !== undefined){
       var dataSearch = products.filter(item=>{
         return Object.keys(item).some(key=>
             item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
           )
       });
+    }else{
+      dataSearch = {};
+    }      
     
     return (       
       <>
@@ -234,15 +211,15 @@ const Body = () => {
           <p>Analista</p>
           <select id="analista" name="analista" onChange={inputValue}>
               <option value="">Analista</option>
-              <option value="Amutti">Gabriel Amutti</option>
-              <option value="Victor">Victor Rodrigues</option>
-              <option value="Richard">Richard</option>
+              <option value="Gabriel Amutti">Gabriel Amutti</option>
+              <option value="Victor Rodrigues">Victor Rodrigues</option>
+              <option value="Richard Correa">Richard Correa</option>
             </select>
         </div>
         <div className="item">
           <p>Status</p>
           <select id="status" name="status" onChange={inputValue}>
-            <option value="Pendente">Status</option>
+            <option value="">Status</option>
               <option value="Pendente">Pendente</option>
               <option value="Andamento">Andamento</option>
               <option value="Feito">Feito</option>
@@ -268,10 +245,9 @@ const Body = () => {
                           <div className='cabeStaAgend'>Status</div>
                           <div className='cabeAnaAgend'>Analista</div>
                           <div className='cabeObsAgend'>Observação</div>
-                          <div className='cabeOpc'>Opções</div>
+                          <div className='cabeOpcAgend'>Opções</div>
                         </div>
-                        {
-                                typeof products !== "undefined" && Object.values(dataSearch).map((produc, index) => 
+                        {Object.values(dataSearch).map((produc, index) => 
                                 
                       <div className="agendCardAgend d-flex" key={index}>
                             <div className="empresaDivAgend">
@@ -298,27 +274,18 @@ const Body = () => {
                             <div className="obsDivAgend">
                             {produc.observacao}
                             </div>
-                            <div className="opcoesDiv">
-                                <div className="opcButtons d-flex">
-                                      <button className='buttonsOpc' id="bt1Apag" onClick={() => deleteAgend(produc.id)}>
+                            <div className="opcoesDivAgend">
+                                <div className="opcButtonsAgend d-flex">
+                                <Link to={`/addproduct/${produc.id}/editagend`}>
+                                        <button className='buttonsOpcAgend' id="bt2EditAgend">
+                                          <GoPencil className="opcIcons"/>
+                                       </button>
+                                    </Link>
+                                      <button className='buttonsOpcAgend' id="bt1ApagAgend" onClick={() => deleteAgend(produc.id)}>
                                         <FaTrashAlt className="opcIcons"/>
-                                      </button>
-                                    <div className='buttonsOpc' id="bt2" onClick={handleShow2}>
-                                      <GoPencil className="opcIcons"/>
-                                    </div>
-                                    <div className='buttonsOpc' id="bt3">
-                                    <BsThreeDotsVertical className="opcIcons"/>
-                                    </div>
+                                      </button>                                      
                                 </div>
-                            </div>
-                            <Modal  dialogClassName='mod' fullscreen={fullscreen2} show={show2} onHide={handleClose2} animation={true}>
-              <Modal.Header closeButton className="modd">
-                <Modal.Title>Alterar Agendamento</Modal.Title>
-             </Modal.Header>
-            <Modal.Body className="modd">
-                <UpdateAgend agendId = {produc.analista}/>
-            </Modal.Body>
-            </Modal>
+                            </div>                  
                       </div>
                     )
                 }

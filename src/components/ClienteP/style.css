@@ -638,14 +638,14 @@ display: block;
   background-color: #e4e1e1;
 }
 
-.cabeEmp, .cabeCli, .cabeTel, .cabeDat, .cabeHor, .cabeSta, .cabeAna, .cabeObs, .cabeOpc{
+.cabeEmp, .cabeCli, .cabeTel, .cabeDat, .cabeHor, .cabeSta, .cabeAna, .cabeObs, .cabeOpcEmp{
   text-align: center;
   padding: 10px 0;
   font-family: 'Nunito', sans-serif;
   font-weight: bold;
 }
 
-.empresaDiv, .clienteDiv, .telefoneDiv, .comercialDiv, .produtoDiv, .planoDiv, .ramaisDiv, .dataDiv, .opcoesDiv{
+.empresaDiv, .clienteDiv, .telefoneDiv, .comercialDiv, .produtoDiv, .planoDiv, .ramaisDiv, .dataDiv, .opcoesDivEmp{
   text-align: center;
   padding: 15px 0;
 }
@@ -653,6 +653,10 @@ display: block;
 .empresaDiv, .cabeEmp{
   width: 11%;
   height: 100%; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  margin-left: 5px;
 }
 .clienteDiv, .cabeCli{
   width: 12%;
@@ -682,23 +686,27 @@ display: block;
   width: 11%;
   height: 100%;
 }
-.opcoesDiv, .cabeOpc{
-  width: 12%;
+
+.opcoesDivEmp, .cabeOpcEmp{
+  width: 13%;
   height: 100%;
 }
 
-.opcButtons{
-  width: 85%;
-  height: 95%;
+.opcButtonsEmp{
+  width: 40%;
+  height: 100%;
   margin: 0 auto;
 }
 
-.buttonsOpc{
-  width: 30%;
+.buttonsOpcEmp{
+  width: 25px;
   height: 100%;
   background-color: #ececec;
   margin-right: 9px;
   border-radius: 6px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border: none;
   cursor: pointer;
 }
 
@@ -706,21 +714,22 @@ display: block;
   color: white;
 }
 
-#bt1{
+#bt1ApagEmp{
   background-color: rgb(226, 45, 45);
 }
 
-#bt1:hover{
+#bt1ApagEmp:hover{
   background-color: rgb(185, 5, 5);
 }
 
-#bt2{
-background: rgb(41, 41, 248);
+#bt2EditEmp{
+  background: rgb(41, 41, 248);
+  width: 25px;
 }
 
-#bt2:hover{
+#bt2EditEmp:hover{
   background: rgb(3, 3, 177);
-  }
+}
 
 #bt3{
   background: rgb(34, 34, 34);

@@ -1,13 +1,12 @@
 import './style.css'
 import { useEffect, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
 import { TiFilter } from "react-icons/ti";
 import { FaTrashAlt } from "react-icons/fa";
 import { GoPencil } from "react-icons/go";
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ClienteP = () => {
 
@@ -37,8 +36,8 @@ const ClienteP = () => {
 
     const inputD = () => {
         var date = document.getElementById('dateCalendar').value;
-        var array = date.split('-');
-        var dataFinal = `${array[2]}/${array[1]}/${array[0]}`;
+        //var array = date.split('-');
+        //var dataFinal = `${array[2]}/${array[1]}/${array[0]}`;
         setProduct({...product, dataEmp: date});
     }
 
@@ -50,7 +49,6 @@ const ClienteP = () => {
         setFullscreen(breakpoint);
         setShow(true);
       } 
-      var obj = JSON.parse(sessionStorage.getItem('userData'));
 
     const getEmpresas = () => {
         fetch(`http://localhost/final/index.php/empresas`,{
@@ -61,8 +59,7 @@ const ClienteP = () => {
             }        
             })
             .then((response) => response.json())
-            .then((responseJson) => { 
-              console.log(responseJson);
+            .then((responseJson) => {
                  setProducts(responseJson.listaEmpresas);                          
             }).catch((error)=>{                
                 console.log(error);
@@ -93,8 +90,7 @@ const ClienteP = () => {
             })                
     }  
 
-    const cadProduct = async (e) =>{     
-      e.preventDefault();      
+    const cadProduct = async () =>{          
             await fetch("http://localhost/final/index.php/criarEmpresa",{ 
             method: "POST",
             headers: {
@@ -117,11 +113,9 @@ const ClienteP = () => {
       })
       .then((response) => response.json())
       .then((responseJson) => {      
-        console.log(responseJson);
         getEmpresas();          
       })
     }
-
 
     useEffect(() => {   
       getEmpresas();  
@@ -140,11 +134,17 @@ const ClienteP = () => {
     const searchText = (event) =>{
       setFilter(event.target.value);
     }
-  let dataSearch = products.filter(item=>{
-    return Object.keys(item).some(key=>
-        item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
-      )
-  });  
+
+    if(products !== undefined){
+      var dataSearch = products.filter(item=>{
+        return Object.keys(item).some(key=>
+            item[key].toString().toLowerCase().includes(filter.toString().toLowerCase())
+          )
+      });
+    }else{
+      dataSearch = {};
+    } 
+    
     return (       
       <>
       <div className="todoConteudoCli d-flex">
@@ -234,7 +234,7 @@ const ClienteP = () => {
                           <div className='cabeSta'>Plano</div>
                           <div className='cabeAna'>Ramais</div>
                           <div className='cabeObs'>Data</div>
-                          <div className='cabeOpc'>Opções</div>
+                          <div className='cabeOpcEmp'>Opções</div>
                         </div>
                         {
                                 typeof products !== "undefined" && Object.values(dataSearch).map((produc, index) => {
@@ -264,17 +264,16 @@ const ClienteP = () => {
                             <div className="dataDiv">
                             {produc.dataEmp}
                             </div>
-                            <div className="opcoesDiv">
-                                <div className="opcButtons d-flex">
-                                      <button className='buttonsOpc' id="bt1Apag" onClick={() => deleteAgend(produc.idEmpresa)}>
+                            <div className="opcoesDivEmp">
+                                <div className="opcButtonsEmp d-flex">
+                                <Link to={`/addcliente/${produc.idEmpresa}/editcliente`}>
+                                        <button className='buttonsOpcEmp' id="bt2EditEmp">
+                                          <GoPencil className="opcIcons"/>
+                                        </button>
+                                    </Link>
+                                      <button className='buttonsOpcEmp' id="bt1ApagEmp" onClick={() => deleteAgend(produc.idEmpresa)}>
                                         <FaTrashAlt className="opcIcons"/>
-                                      </button>
-                                    <div className='buttonsOpc' id="bt2">
-                                    <GoPencil className="opcIcons"/>
-                                    </div>
-                                    <div className='buttonsOpc' id="bt3">
-                                    <BsThreeDotsVertical className="opcIcons"/>
-                                    </div>
+                                      </button>                                      
                                 </div>
                             </div>
                       </div>
